@@ -1,0 +1,20 @@
+Sarah: Hey David, the client has asked for one more change to the checkout flow.
+David: Okay. What's the change?
+Sarah: They want customers to edit their shipping address after selecting a payment method.
+David: Got it. Was that included in the original requirement?
+Sarah: No, that wasn't part of the original scope.
+David: Okay. How much work would that involve?
+Sarah: We'd probably need some frontend changes and additional backend validation.
+David: Right. Would QA need to update the test cases too?
+Sarah: Yeah, I think so. We'd need to cover the new flow.
+David: Does that affect the current sprint timeline?
+Sarah: It could. We already have a pretty full sprint.
+David: Okay. Can we fit this in if we move another task out?
+Sarah: Possibly. Which task would you suggest moving?
+David: We could move the address history task to the next sprint.
+Sarah: That might work. Is the client okay with that?
+David: I'm not sure. Should we confirm the priority with them first?
+Sarah: Yeah, let's do that before we change the sprint scope.
+David: Sounds good. If they want this now, we can explain the trade-off.
+Sarah: Exactly. I'll check with the client and update the ticket.
+David: Alright. Let me know what they decide.

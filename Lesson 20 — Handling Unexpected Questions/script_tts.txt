@@ -1,0 +1,39 @@
+Michael: Okay, so today we wanted to walk through the checkout updates, but Sarah, I know you had a few other things on your mind too.
+
+Sarah: Yeah, actually — quick question before we get into that. Does the new filter feature work properly on mobile?
+
+David: That's a good question, actually. [pause] Let me think about that for a second — I believe it does, but I haven't personally tested it on smaller screens yet.
+
+Sarah: Okay, could you confirm that by tomorrow? And actually, while we're on it — is there any chance we could open this up to a third-party partner's API later?
+
+James: Hmm, that's not something we've discussed yet. I'd need to check that first, since it could have security implications depending on how it's exposed.
+
+Sarah: Right, that makes sense. Sorry, one more thing — could this feature be made configurable per store, or is it hardcoded for now?
+
+David: I'm not sure off the top of my head, honestly. It might be possible with some changes, but I can't confirm without looking at the current implementation.
+
+Michael: Sarah, would it help if David and James put together a short technical assessment covering all three of these?
+
+Sarah: That'd be great, actually. Oh — and while you're at it, could you also check if this could affect page load speed on the homepage?
+
+James: That's a fair concern. Off the top of my head, I'd say it's unlikely, but I don't want to promise something without confirming first.
+
+Sarah: Okay, no problem. I know I'm throwing a lot at you today.
+
+David: It's fine, honestly — better to ask now than assume later and run into issues.
+
+Michael: Alright, so let's recap — mobile testing, third-party API feasibility, per-store configurability, and homepage performance impact.
+
+James: Right, I'll take the security and performance side, and David can handle the mobile and configuration questions.
+
+David: Sounds good. I'll look into it and get back to you with real answers, not guesses.
+
+Sarah: Perfect, that works for me. When do you think you'll have something?
+
+Michael: Let's say by end of week — does that timeline work for everyone?
+
+James: That should be enough time to look into it properly, yeah.
+
+David: Agreed, that gives us room to actually test things instead of just estimating.
+
+Sarah: Great, thanks for being upfront about what you don't know yet — I'd rather have accurate answers later than wrong ones now.

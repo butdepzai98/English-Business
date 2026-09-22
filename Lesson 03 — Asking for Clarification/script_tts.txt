@@ -1,0 +1,27 @@
+Sarah: Hey David, for the new checkout, we want users to save their billing information.
+
+David: Sorry, I didn't catch that last part. Can you say it again?
+
+Sarah: Sure. Users should be able to save their billing information during checkout.
+
+David: Okay. Do you mean we save it automatically?
+
+Sarah: Not exactly. They should be able to choose whether to save it.
+
+David: Ah, okay. So we need a checkbox for that?
+
+Sarah: Yeah, that's what we're thinking.
+
+David: Got it. And should the checkbox be selected by default?
+
+Sarah: No, it should be unchecked by default.
+
+David: Okay, just to clarify, users have to check it before we save their information, right?
+
+Sarah: Exactly.
+
+David: Alright, that makes sense.
+
+Sarah: Cool. Let me know if anything else is unclear.
+
+David: Sure, will do.

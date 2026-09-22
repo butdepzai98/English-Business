@@ -1,0 +1,22 @@
+Sarah: Okay, so the client wants customers to save shipping addresses for future orders.
+David: Got it. Just to confirm, only logged-in customers can save an address, right?
+Sarah: That's right. Guest users can't save addresses.
+David: Okay. Can customers save more than one address?
+Sarah: Yes, they can save multiple addresses.
+David: And can they choose one as their default address?
+Sarah: Exactly. The default address should be selected automatically during checkout.
+David: So, if I understand correctly, the customer doesn't have to select an address every time.
+Sarah: Right. The default one will be selected for them.
+David: Okay. Can they change the selected address before placing the order?
+Sarah: Yes, they can choose another saved address.
+Emily: And what happens if they don't have any saved addresses?
+Sarah: They'll need to enter a new shipping address manually.
+David: Got it. Does that also apply to guest users?
+Sarah: Yes. Guests have to enter their address manually.
+David: Okay, so logged-in customers can save multiple addresses, while guests can only enter an address during checkout.
+Sarah: Exactly.
+David: And the default saved address is selected automatically, but customers can change it before placing the order.
+Sarah: That's correct.
+Emily: Great. That sounds clear from the QA side.
+David: Alright. I think we're on the same page now.
+Sarah: Perfect. I'll update the ticket with these rules.

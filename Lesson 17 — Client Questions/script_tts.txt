@@ -1,0 +1,89 @@
+Sarah: Hey, thanks for jumping on this. So I was testing the new filter yesterday, and something felt a little off.
+
+Michael: Sure, what were you seeing exactly?
+
+Sarah: When I select two filters together, like brand and price range, some products just disappear. Even products that should match both filters aren't showing up.
+
+Emily: Does it happen with every combination of filters, or only specific ones?
+
+Sarah: It seems to happen mostly when I combine brand with price range. I haven't tested every possible combination yet.
+
+David: Right, yeah. That's actually related to how the indexing currently works for combined attributes.
+
+Sarah: Okay, but why would it work that way? From a user's point of view, that looks like a bug.
+
+David: I understand. The filters are indexed separately, and when you combine them, the system relies on the indexed attribute combinations available at that point.
+
+Michael: So the system isn't actually checking the product data in real time?
+
+David: Correct. It's querying the search index rather than the product database directly.
+
+Sarah: And that's why some valid products are missing?
+
+David: Exactly. If the relevant attribute combination isn't represented correctly in the index, the product won't appear in the filtered result.
+
+Emily: Is the product itself still available if you search for it without applying the filters?
+
+David: Yes, in most cases. The product data itself isn't missing. The problem is with how the filter criteria are being applied to the indexed data.
+
+Sarah: Hmm, I don't fully follow, but would it be possible to change that?
+
+David: Technically, yes, but it wouldn't be a small change. We'd need to review the indexing logic and potentially rebuild part of the indexer.
+
+Michael: How much of the search system would that affect?
+
+David: Potentially quite a lot. The same indexing logic is used by category pages and search results, so we'd need to be careful not to improve filtering accuracy while making the overall search slower.
+
+Sarah: So we're basically trading accuracy for performance?
+
+David: Exactly. We could make the filtering more accurate, but depending on the implementation, category pages with a large number of products could become noticeably slower.
+
+Emily: Do we have any numbers on the performance impact?
+
+David: Not yet. I haven't tested the alternative implementation, so I don't want to guess.
+
+Michael: Could we benchmark the current implementation against the proposed one?
+
+David: Yes. That's actually what I'd recommend before making any decision.
+
+Sarah: Is there a reason we can't just test it on a few categories first?
+
+David: That's a reasonable approach. We could enable the alternative indexing logic for a limited set of categories and compare the results.
+
+Emily: From QA's side, I'd prefer that. We could select categories with a large number of products and test several filter combinations.
+
+Michael: That would also give us some real performance data instead of relying on assumptions.
+
+David: Exactly. We could monitor response time, index size, and the number of products returned for each filter combination.
+
+Sarah: How many categories would you suggest for the initial test?
+
+David: Maybe three or four. I'd choose one small category, one medium-sized category, and one or two large categories.
+
+Emily: I'd also include categories with a lot of products sharing the same brand and price ranges. That should make the issue easier to reproduce.
+
+David: Good point. Those categories would give us more useful data.
+
+Sarah: What would happen if we just left it as is for now?
+
+Michael: Most users probably won't notice because the common single-filter scenarios still work. But the combined-filter issue could create confusing search results.
+
+Emily: And it could be difficult for QA to treat it as a simple UI issue because the missing products are caused by backend indexing.
+
+Sarah: So would you consider it a blocker?
+
+David: I wouldn't call it a blocker for the current release. The existing functionality still works for the majority of use cases.
+
+Michael: I agree. But I'd definitely keep it on the backlog because it affects the accuracy of the filtering experience.
+
+Sarah: Okay. What would be the risk of leaving it unchanged for another sprint?
+
+David: The main risk is that users could assume products are unavailable when they're actually available. There's also a chance we'll have to explain inconsistent filter results to the client.
+
+Emily: We should probably document the current behavior so QA doesn't report the same thing repeatedly as a new defect.
+
+Michael: Good idea. We can mark it as a known limitation until we decide whether to change the indexing logic.
+
+Sarah: Alright. Just so I understand correctly: for now, nothing changes, but David will investigate a limited rollout?
+
+David: That's right. I'll put together a quick estimate for the alternative approach and identify which categories would be suitable for testing.

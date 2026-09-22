@@ -1,0 +1,27 @@
+James: Okay, how's testing going on the latest checkout build?
+Emily: Pretty good overall. Most of the test cases have passed, but I found one issue with discount codes.
+David: Okay. What happens?
+Emily: The discount gets removed when I switch from standard shipping to express shipping.
+David: Hmm, okay. Can you reproduce it consistently?
+Emily: Yeah, every time so far. I've tested it on Chrome and Firefox.
+David: Got it. What are the steps to reproduce it?
+Emily: Apply a discount code, go to checkout, and then change the shipping method.
+David: And the discount disappears after that?
+Emily: Exactly.
+David: Okay. I'll check the checkout totals and discount validation.
+James: Is that blocking the release?
+Emily: I don't think so. Customers can still complete the order, but the final total is wrong.
+James: Right. I'd still consider that pretty serious because it affects pricing.
+David: Yeah, I agree. I'll prioritize that one.
+Emily: There's also a small UI issue on the mobile checkout.
+David: What's wrong with it?
+Emily: The shipping method buttons aren't aligned correctly on smaller screens.
+David: Okay. Is that blocking?
+Emily: No, it's just a layout issue.
+James: Alright. Let's focus on the discount issue first.
+David: Sure. I should have a fix ready in about an hour.
+James: Once you push it to staging, Emily, can you retest the discount flow?
+Emily: Yeah, I'll rerun the same test cases and do a quick regression check.
+David: Sounds good. I'll let you know as soon as the new build is up.
+James: Perfect. If that passes, we can make the final call on the release.
+Emily: Got it. I'll keep you posted.

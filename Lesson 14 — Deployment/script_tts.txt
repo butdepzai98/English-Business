@@ -1,0 +1,31 @@
+James: Alright, before we start, are we still good to deploy the checkout release tonight?
+Sarah: As far as QA is concerned, yes. Emily signed off on the latest staging build this morning.
+David: Okay. From the backend side, the code is ready. There's one configuration change that I want to double-check, though.
+James: Which one?
+David: The new checkout timeout value. It's currently set differently in staging and production.
+Sarah: Is that expected, or do we need to change the production value?
+David: It's intentional, but I want to make sure the production value is approved before we deploy.
+James: Good catch. Can you confirm the expected value before the release window?
+David: Yeah, I'll check the deployment config and confirm it with the client team.
+Sarah: How long will that take?
+David: Probably ten minutes. Everything else should be ready.
+James: Okay. What's the deployment plan after that?
+David: I'll deploy the code first, then run the database migration and clear the application cache.
+James: Do we need to reindex anything?
+David: No new indexer changes in this release, so we shouldn't need a full reindex.
+Sarah: And who's doing the smoke test?
+James: David can verify the backend health, and I'll run through the main checkout flow.
+David: Sounds good. We should also check that the payment API is responding normally.
+Sarah: Right. Anything else we should watch out for?
+David: The first few minutes after deployment are the main risk. I'd like to monitor checkout errors and payment failures.
+James: Agreed. What's the rollback plan if we see a spike?
+David: If the error rate increases significantly, I'll revert the deployment to the previous version.
+Sarah: Would we need to roll back the database migration too?
+David: Not for this change. The migration is backward compatible, so we can revert the code without reverting the database.
+James: Good. That makes the rollback safer.
+Sarah: Okay. Let's say the deployment takes twenty minutes. Are we still on track for the release window?
+David: Yeah, assuming the config check is fine, we should be done around eight-thirty.
+James: Perfect. Just let us know if anything changes before you start.
+David: Will do. I'll confirm the config first and post an update in the release channel.
+Sarah: Great. Once the smoke test passes, we'll consider the release complete.
+James: Sounds good. Let's keep an eye on it for the first fifteen minutes.

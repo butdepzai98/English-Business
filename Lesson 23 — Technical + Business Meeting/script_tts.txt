@@ -1,0 +1,39 @@
+Michael: Okay, so — just to bring everyone up to speed, Emily found something concerning with the payment flow yesterday. Emily, can you walk us through it?
+
+Emily: Yeah, so basically, in a handful of test cases, the gateway returns a timeout error, but the order still gets created on our end, which means the customer might actually be charged.
+
+James: Right, and my best guess is that's a retry-logic issue — we might be resubmitting the payment request without properly checking if the first one already went through.
+
+David: I mean, that's possible, but honestly, I think it might be on the frontend side — if we're not handling the timeout response correctly, we could be triggering a second submission ourselves.
+
+James: Sure, that's fair, but — sorry, can I just — the backend logs show the duplicate request coming in almost immediately after the timeout, which points more toward a retry issue to me.
+
+David: Right, but that timing would also make sense if the frontend auto-retries on timeout without waiting for a proper response, which is honestly what I suspect is happening.
+
+Michael: Okay, okay — from a technical standpoint, I hear there are two theories, but from a business standpoint, the real question is: how risky is this for customers right now?
+
+Emily: Honestly, pretty risky — if this happens even occasionally in production, we're talking about actual double-charges, which is a financial and reputational risk.
+
+Michael: Right, that's what I was afraid of. So, where does that leave us in terms of the release next week?
+
+James: I don't think we can rule out either cause yet, so my instinct is we should hold the release until we've confirmed the root cause.
+
+David: I'd lean that way too — shipping this without knowing which side is actually broken feels risky, especially with real money involved.
+
+Michael: Let's not jump to conclusions before we know more, but — yeah, I agree, holding the release sounds like the safer call here.
+
+Emily: I can help narrow it down faster if David and James want to pair on reproducing it together this afternoon.
+
+James: That'd actually be really helpful, yeah — two sets of eyes on the logs might get us to a root cause quicker.
+
+David: Agreed, let's do that right after this call.
+
+Michael: Perfect. So, at the end of the day, we're holding the release, David and James are pairing on root cause this afternoon, and Emily's keeping an eye on any other related cases.
+
+Emily: Sounds good to me.
+
+James: Works for me too.
+
+David: Yep, I'll update everyone once we've narrowed it down, hopefully by end of day.
+
+Michael: Great, thanks everyone — this is exactly the kind of thing worth slowing down for.

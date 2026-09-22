@@ -1,0 +1,17 @@
+Sarah: Hey David, I want to go over the discount code requirement before we start development.
+David: Sure. Do we already know which customers should be able to use the code?
+Sarah: Yes. Logged-in customers can use it, but guest users shouldn't have access.
+David: Okay. Has the client decided what happens if a guest tries to apply the code?
+Sarah: Yeah, they should see a message asking them to log in first.
+David: Got it. Do we need to restrict the code to certain customer groups?
+Sarah: For now, no. Any logged-in customer should be able to use it.
+David: Okay. What should happen if the customer has already used another discount?
+Sarah: They shouldn't be able to combine the discounts.
+David: Makes sense. Should the system show an error message in that case?
+Sarah: Yes, and it should explain that only one discount can be used.
+David: Okay. Have we confirmed whether the code needs to be validated before checkout?
+Sarah: Yes, the client wants it validated as soon as the customer applies it.
+David: Got it. And if the code is expired, should we remove it automatically?
+Sarah: Yes. The discount should be removed and the customer should see a message.
+David: Alright. I think that covers the main cases.
+Sarah: Great. I'll add these rules to the ticket so we're on the same page.

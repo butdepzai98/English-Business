@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Business English for IT Meetings</title>
+  <link rel="stylesheet" href="code/style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="sidebar-top">
+        <input id="lessonSearch" class="search" type="search" placeholder="Gõ số lesson..." autocomplete="off">
+        <div class="progress-label">
+          <span id="progressText">0 / 24 lesson</span>
+          <span id="progressPercent">0%</span>
+        </div>
+        <div class="progress-track"><div id="progressBar" class="progress-bar"></div></div>
+      </div>
+      <div id="courseTree" class="course-tree"></div>
+    </aside>
+
+    <main class="main">
+      <div id="welcome" class="welcome hidden"></div>
+
+      <section id="lessonView" class="lesson-view">
+        <nav class="tabs" aria-label="Lesson navigation">
+          <button class="tab active" data-tab="audio">Learn</button>
+          <button class="tab" data-tab="lesson">Description</button>
+        </nav>
+
+        <header class="lesson-header">
+          <div>
+            <h1 id="lessonTitle">Lesson</h1>
+            <div id="lessonMeta" class="lesson-meta"></div>
+          </div>
+          <div class="lesson-actions">
+            <div id="lessonBadges" class="badges"></div>
+            <button id="completionButton" class="completion-button" type="button"></button>
+          </div>
+        </header>
+
+        <div id="lessonPanel"></div>
+        <div id="audioPanel" class="tab-panel hidden"></div>
+      </section>
+    </main>
+  </div>
+
+  <script src="code/course-data.js"></script>
+  <script src="code/app.js"></script>
+</body>
+</html>

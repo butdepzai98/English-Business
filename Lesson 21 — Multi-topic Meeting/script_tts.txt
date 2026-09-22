@@ -1,0 +1,47 @@
+Michael: Alright, let's get started. First up — David, where are we with that checkout bug from last week?
+
+David: It's still being investigated. Emily found a related case yesterday that might actually be the same root cause.
+
+Emily: Right, and once we pin that down, we should have a fix pretty quickly, but I don't have a solid ETA yet.
+
+Michael: Okay, let's circle back to that in a second. James, quick one — has the new referral requirement been scoped out yet?
+
+James: Not fully, actually. There are still a couple of open items around how points get calculated across multiple orders.
+
+Michael: Got it. Can we park that for now and loop back once you've talked to the client?
+
+James: Yeah, that works. I'll have more clarity by tomorrow's client call.
+
+Michael: Perfect. Now, going back to the bug — David, does that affect our deployment plan for this week?
+
+David: It might. If the fix isn't ready by Wednesday, I'd recommend holding off on the deploy until next week instead.
+
+Emily: I'd agree with that — deploying with a known bug on checkout feels risky, especially before the weekend.
+
+Michael: Makes sense. So, tentatively, deployment's on hold pending the bug fix — is everyone okay with that?
+
+James: Sounds reasonable to me, yeah.
+
+David: Agreed, better safe than sorry on checkout issues.
+
+Michael: Alright, moving on — where does that leave us on the overall sprint ETA?
+
+Emily: Honestly, it's a bit uncertain right now, since the bug fix timeline isn't locked down yet.
+
+David: If we get the fix out by Wednesday like planned, I think we're still roughly on track.
+
+Michael: Okay, and if it slips past Wednesday?
+
+David: Then the ETA probably shifts by a couple of days, depending on how testing goes afterward.
+
+Michael: Understood. Let's plan for that possibility, just in case. James, can you keep the client loosely informed without overcommitting to a date?
+
+James: Sure, I'll mention there's a small risk without giving a hard deadline.
+
+Michael: Great. So, to summarize — David and Emily are chasing down the bug, James is finalizing the referral requirement by tomorrow, and deployment's paused until the bug's resolved.
+
+Emily: Sounds right to me.
+
+David: Yep, I'll update everyone as soon as we've confirmed the root cause.
+
+Michael: Perfect, thanks everyone — let's regroup same time next week, or sooner if anything changes.

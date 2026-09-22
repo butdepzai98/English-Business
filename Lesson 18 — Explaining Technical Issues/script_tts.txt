@@ -1,0 +1,43 @@
+Michael: Okay, thanks for jumping on this quickly. Emily, can you start by telling us what you found?
+
+Emily: Sure. I noticed that a few customers were seeing outdated prices on the site, even though we updated them in the admin panel yesterday.
+
+Michael: Okay, so — David, do we know why that's happening?
+
+David: Yeah, so basically, the issue was triggered by the cache not being invalidated after the price update went live.
+
+Michael: Can you explain that a bit more simply? What does that actually mean for us?
+
+David: Sure. So Varnish, our caching layer, is supposed to clear old pages whenever prices change. In this case, that step didn't happen for a specific set of category pages.
+
+Emily: So the pages just kept showing the old cached version instead of pulling the new price?
+
+David: Exactly. The server had the correct price, but the cached page being served to users still had the old one.
+
+Michael: Okay, and do we know how many customers were actually affected by this?
+
+David: As far as we know, it's limited to about a dozen category pages, but we're still confirming the exact number of affected sessions.
+
+Michael: Is that confirmed, or is that still an assumption at this point?
+
+David: That's still an assumption — we're working with the logs team to get a more accurate number.
+
+Emily: What's being done about it right now, though?
+
+David: As a temporary fix, we've manually flushed the cache for the affected pages, so the prices should be correct now.
+
+Michael: Good. And what about a permanent fix, so this doesn't happen again?
+
+David: The permanent fix will involve updating the cache-invalidation logic so it triggers automatically whenever a price change is saved.
+
+Michael: Okay, how long do you think that'll take to implement?
+
+David: I'd estimate a day or two, but I'll need to test it carefully before it goes to production.
+
+Emily: Should I keep monitoring the affected pages in the meantime?
+
+David: Yeah, that'd be really helpful — just to confirm the hotfix is holding until the real fix is deployed.
+
+Michael: Alright, sounds like we have a plan. David, can you send a short summary after this call?
+
+David: Sure, I'll write it up and share it with both of you by end of day.

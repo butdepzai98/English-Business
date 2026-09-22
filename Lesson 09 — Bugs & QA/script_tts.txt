@@ -1,0 +1,23 @@
+Sarah: Hey David, Emily found an issue on the checkout page.
+David: Okay. What's the issue?
+Emily: The discount code gets removed when the customer changes the shipping method.
+David: Okay. Does it happen every time?
+Emily: Yeah, I can reproduce it consistently on staging.
+David: Got it. What are the steps to reproduce it?
+Emily: First, add a product to the cart and apply a valid discount code.
+David: Okay.
+Emily: Then go to checkout and change the shipping method. The discount disappears after that.
+David: Right. What should happen instead?
+Emily: The discount should stay applied unless it's no longer valid.
+David: Got it. Does this happen with all discount codes?
+Emily: So far, I've only tested percentage-based codes.
+David: Okay. I'll take a look at the checkout logic and see what's happening.
+Sarah: Is this blocking checkout?
+Emily: No, customers can still place the order, but they lose the discount.
+Sarah: Okay. So it's not blocking, but it can affect the order total.
+David: Yeah. I'll investigate the discount validation first.
+Sarah: When do you think you can have a fix?
+David: I should know more after I check the code. I'll give you an update this afternoon.
+Sarah: Sounds good. Once it's fixed, Emily, can you retest it?
+Emily: Sure. I'll run the same steps and check a few different discount codes.
+David: Perfect.

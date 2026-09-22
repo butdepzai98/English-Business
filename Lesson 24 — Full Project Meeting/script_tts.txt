@@ -1,0 +1,55 @@
+Michael: Alright, thanks everyone for making time — Sarah's joining us today too, so let's do a quick status recap before we dive into anything else.
+
+David: Sure — overall we're in decent shape. Most of the sprint's done, PR's up for review, just waiting on James to take a look.
+
+James: Yeah, I saw it this morning, there's actually a small merge conflict on the checkout branch, but that should be quick to resolve.
+
+Sarah: Sorry, before we go further — can I just clarify something about the referral requirement? I wasn't totally sure what got decided last time.
+
+Michael: Of course, go ahead.
+
+Sarah: So, does the discount apply per order, or per customer across their whole account?
+
+David: Hmm, that's actually still a bit open — I don't think that's something we can commit to without confirming the exact rule with you first.
+
+Sarah: Okay, got it, let's figure that out after this call then.
+
+Michael: Sounds good. Going back to the sprint — James, anything blocking besides the merge conflict?
+
+James: Actually, yeah — QA flagged a new issue on staging just this morning, something with the checkout totals looking off under specific discount combinations.
+
+David: Wait, really? I hadn't heard about that one yet.
+
+James: Yeah, it just came in — I mean, it might be related to the referral logic we're literally just talking about, honestly.
+
+Michael: Okay, that's — [pause] let me think about that for a second. So we've got an open requirement question AND a possibly related bug at the same time?
+
+James: Could be a coincidence, could not be — I don't want to guess without looking at it properly first.
+
+David: Agreed, let's not jump to conclusions — I can pair with James on it right after this.
+
+Michael: Alright. So, at the end of the day, the real question is — does this affect our production deploy timing?
+
+James: Honestly, I'd say hold off until we've confirmed it's not connected to the discount issue, just to be safe.
+
+Sarah: That makes sense to me — I'd rather wait a day than risk something going wrong with pricing.
+
+Michael: Agreed. So, tentatively, deploy's paused pending that investigation.
+
+Sarah: Okay — actually, sorry, random question, but is this something that would affect a possible mobile app version down the line, if we ever built one?
+
+David: Oh — huh, honestly, I hadn't thought about that. It's not something we've looked into at all yet.
+
+Michael: Yeah, that'd be a bigger conversation for another time, but good to keep in mind for the roadmap.
+
+Sarah: Fair enough, just curious. Okay, so let's agree on next steps before we wrap up?
+
+Michael: Sure — David and James pair on the bug and the merge conflict this afternoon, we confirm the referral rule with Sarah separately, and deploy stays on hold until we've got clarity.
+
+David: Works for me, I'll update everyone once we know more.
+
+James: Same here, should have something concrete by end of day.
+
+Sarah: Perfect, thanks everyone — this was a lot, but I feel like we're actually in good shape.
+
+Michael: Agreed, thanks all — let's regroup tomorrow if anything changes before then.

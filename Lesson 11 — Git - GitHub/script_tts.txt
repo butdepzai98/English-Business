@@ -1,0 +1,21 @@
+James: Hey David, how's the checkout PR coming along?
+David: Pretty good. The feature is done, but my branch is behind develop.
+James: How far behind are you?
+David: About six commits. I also noticed that two of the checkout files have changed on develop.
+James: Okay. Do you expect any conflicts?
+David: Yeah, probably. Both branches changed the checkout controller.
+James: Got it. Do you want to rebase the branch onto develop?
+David: Yeah, I think that's the better option here. Is that okay with you?
+James: Yep. Just make sure you run the tests after resolving the conflicts.
+David: Sure. I'll rebase first, resolve the conflicts locally, and run the checkout tests.
+Sarah: How much time do you think that will take?
+David: Probably an hour or so, assuming there aren't any unexpected conflicts.
+Sarah: Okay. Does that put the PR at risk for today's review?
+David: I don't think so. I should be able to update the PR this afternoon.
+James: Sounds good. One thing to watch out for is the frontend changes in the same flow.
+David: Right. I'll check those after I resolve the backend conflict.
+James: Perfect. And don't force-push unless you're sure the branch is only yours.
+David: Got it. It's my feature branch, so that should be fine.
+Sarah: Okay. Let us know once it's ready for review.
+David: Sure. I'll post an update in the PR when the tests pass.
+James: Great.

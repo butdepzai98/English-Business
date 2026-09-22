@@ -1,0 +1,33 @@
+Sarah: Hey David, can I get a quick update on your task?
+
+David: Sure. I finished the backend configuration yesterday.
+
+Sarah: Okay. What are you working on today?
+
+David: I'm working on the frontend part now.
+
+Sarah: Got it. How's it going so far?
+
+David: Pretty good. I think I can finish it today.
+
+Sarah: Nice. Any blockers?
+
+David: Yeah, I'm waiting for the QA environment.
+
+Sarah: Okay. Is that blocking your work?
+
+David: Not yet, but it might slow down testing later.
+
+Sarah: Got it. Do you need anything from the team?
+
+David: I don't think so. Maybe I'll need some help with testing later.
+
+Sarah: Sure. Let's check with QA after the meeting.
+
+David: Sounds good.
+
+Sarah: Anything else from your side?
+
+David: No, that's all for me.
+
+Sarah: Alright, thanks, David.

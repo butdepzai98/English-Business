@@ -1,0 +1,27 @@
+Sarah: Hey David, can I get an update on the checkout feature?
+
+David: Sure. I finished most of the backend work yesterday.
+
+Sarah: Okay, and where are we on the frontend?
+
+David: I'm still working on it. I have a few things left to finish.
+
+Sarah: Got it. How's the progress so far?
+
+David: Pretty good. The main flow is working, but I need to fix some validation.
+
+Sarah: Okay. Do you think you can finish that today?
+
+David: Yeah, I should have it done by the end of the day.
+
+Sarah: Alright. Are we still on track for testing tomorrow?
+
+David: I think so. If everything goes well, we can start testing tomorrow morning.
+
+Sarah: Sounds good. Anything you need from me?
+
+David: No, I think I'm good for now.
+
+Sarah: Okay, keep me posted if anything changes.
+
+David: Sure, will do.

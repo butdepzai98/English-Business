@@ -1,0 +1,41 @@
+Sarah: Okay so, I know we're close to launch, but my boss just told me this morning that we absolutely need gift wrapping in this release — like, non-negotiable, it has to be there.
+
+Michael: I hear you, Sarah, and I completely understand the pressure you're under, but that wasn't part of the original scope for this release.
+
+Sarah: I know, I know, but — look, can we just squeeze it in? It doesn't seem like it'd be that complicated, right?
+
+David: Actually, it's more involved than it looks — adding gift wrapping means touching the checkout flow, the order summary, and the shipping logic, all of which are already locked for testing.
+
+Sarah: Okay but what if we just did a simplified version, like just a checkbox that says "gift wrap this," nothing fancy?
+
+David: Even a simplified version would mean reopening testing on the whole checkout flow, and honestly, that puts the entire release timeline at risk.
+
+Sarah: Right, no, I get that, but — sorry, can I just add one more thing while we're at it? We also really need the loyalty points to show up in real time now, not just after checkout.
+
+Michael: Wait, hold on — that's actually a separate, fairly significant piece of work on its own, Sarah.
+
+Sarah: I know it's a lot, I know, but my boss is breathing down my neck here, and I just need something I can show him by Friday.
+
+David: Here's the thing — if we try to add both of those now, there's a real risk of introducing new bugs right before launch, which could end up being worse for everyone.
+
+Sarah: Okay, that's fair, I guess I hadn't thought about it that way, honestly.
+
+Michael: Let me be upfront about what's realistic here — we can't commit to both without cutting corners somewhere else, and I don't think that's a risk worth taking this close to launch.
+
+Sarah: Okay, so what CAN we do, then? I still need to bring something back to my boss.
+
+David: What I can do is ship the gift-wrapping checkbox as a fast follow, maybe two or three days after launch, once the core release is stable.
+
+Sarah: And the loyalty points thing?
+
+Michael: That one's bigger — I'd suggest we scope it properly next sprint instead of rushing it in now.
+
+Sarah: Hmm, okay. Can we agree on a version that's doable by the deadline, and revisit the rest afterward?
+
+David: Yeah, that works for me — ship what's stable now, follow up with gift wrapping shortly after, and properly plan the loyalty points feature for next sprint.
+
+Sarah: Alright, I can work with that. Honestly, thanks for being straight with me instead of just saying yes to everything.
+
+Michael: Of course — we'd rather be upfront now than promise something we can't deliver later.
+
+Sarah: Yeah, I appreciate that. Okay, let me go talk to my boss with this plan and I'll follow up if anything changes.

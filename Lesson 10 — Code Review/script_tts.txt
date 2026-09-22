@@ -1,0 +1,22 @@
+James: Hey David, I went through your PR for the checkout validation.
+David: Sure. Did you find anything that needs changing?
+James: Yeah, I have a couple of questions. Why did you go with this approach for the validation?
+David: I kept most of the logic in the checkout controller because it's only being used by checkout right now.
+James: Okay, that makes sense. But could we move the validation into a service?
+David: We could. Are you thinking we might reuse it somewhere else?
+James: Yeah. We may need the same validation from the admin side later.
+David: Got it. In that case, extracting it would make sense.
+James: Exactly. One other thing I noticed is the error handling here.
+David: What about it?
+James: What happens if the validation API returns an error?
+David: Right now, we return a generic error message to the frontend.
+James: Okay. Could we return a more specific response?
+David: I think so. We'd need to update the frontend handling as well.
+Sarah: Would that affect the current ticket scope?
+David: A little. The service extraction is small, but changing the API response would need some frontend work.
+James: We don't necessarily need to change the response in this PR.
+David: Yeah, that's probably better. We can extract the validation logic now and keep the error response as it is.
+James: I agree. That keeps the PR focused.
+Sarah: Sounds good. So David will extract the validation logic, and we'll keep the current error response for now.
+David: Yep. I'll update the PR and add a couple of tests.
+James: Perfect. Let me know when it's ready for another review.

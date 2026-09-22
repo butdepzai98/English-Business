@@ -1,0 +1,27 @@
+Sarah: Morning, David. How's the payment API integration going?
+
+David: Pretty good. The implementation is almost done.
+
+Sarah: Nice. Anything blocking you?
+
+David: Yeah, I'm waiting for the API credentials from the client.
+
+Sarah: Okay. Does that block the development?
+
+David: Not really. I can finish the code, but I can't test the API yet.
+
+Sarah: Got it. When do you expect to get the credentials?
+
+David: I'm not sure. I asked the client yesterday, but I haven't heard back yet.
+
+Sarah: Okay. Is there anything else you can work on?
+
+David: Yeah, I can finish the error handling while we wait.
+
+Sarah: Sounds good. I'll follow up with the client.
+
+David: Thanks. That would help.
+
+Sarah: No problem. Keep me posted if anything changes.
+
+David: Sure, will do.

@@ -1,0 +1,134 @@
+{
+ "audio": "Lesson-11.mp3",
+ "duration": 83.42,
+ "confidence": "high",
+ "max_rate_deviation": 0.35,
+ "turns": [
+  {
+   "speaker": "James",
+   "text": "Hey David, how's the checkout PR coming along?",
+   "start": 0.0,
+   "end": 2.54
+  },
+  {
+   "speaker": "David",
+   "text": "Pretty good. The feature is done, but my branch is behind develop.",
+   "start": 3.07,
+   "end": 7.34
+  },
+  {
+   "speaker": "James",
+   "text": "How far behind are you?",
+   "start": 8.3,
+   "end": 9.22
+  },
+  {
+   "speaker": "David",
+   "text": "About six commits. I also noticed that two of the checkout files have changed on develop.",
+   "start": 10.24,
+   "end": 15.48
+  },
+  {
+   "speaker": "James",
+   "text": "Okay. Do you expect any conflicts?",
+   "start": 16.44,
+   "end": 18.4
+  },
+  {
+   "speaker": "David",
+   "text": "Yeah, probably. Both branches changed the checkout controller.",
+   "start": 18.98,
+   "end": 22.87
+  },
+  {
+   "speaker": "James",
+   "text": "Got it. Do you want to rebase the branch onto develop?",
+   "start": 23.83,
+   "end": 26.28
+  },
+  {
+   "speaker": "David",
+   "text": "Yeah, I think that's the better option here. Is that okay with you?",
+   "start": 26.81,
+   "end": 30.58
+  },
+  {
+   "speaker": "James",
+   "text": "Yep. Just make sure you run the tests after resolving the conflicts.",
+   "start": 31.54,
+   "end": 35.82
+  },
+  {
+   "speaker": "David",
+   "text": "Sure. I'll rebase first, resolve the conflicts locally, and run the checkout tests.",
+   "start": 36.71,
+   "end": 40.88
+  },
+  {
+   "speaker": "Sarah",
+   "text": "How much time do you think that will take?",
+   "start": 41.86,
+   "end": 43.28
+  },
+  {
+   "speaker": "David",
+   "text": "Probably an hour or so, assuming there aren't any unexpected conflicts.",
+   "start": 43.82,
+   "end": 47.65
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Okay. Does that put the PR at risk for today's review?",
+   "start": 48.6,
+   "end": 51.3
+  },
+  {
+   "speaker": "David",
+   "text": "I don't think so. I should be able to update the PR this afternoon.",
+   "start": 51.81,
+   "end": 55.98
+  },
+  {
+   "speaker": "James",
+   "text": "Sounds good. One thing to watch out for is the frontend changes in the same flow.",
+   "start": 56.95,
+   "end": 61.81
+  },
+  {
+   "speaker": "David",
+   "text": "Right. I'll check those after I resolve the backend conflict.",
+   "start": 62.74,
+   "end": 65.22
+  },
+  {
+   "speaker": "James",
+   "text": "Perfect. And don't force-push unless you're sure the branch is only yours.",
+   "start": 66.19,
+   "end": 71.0
+  },
+  {
+   "speaker": "David",
+   "text": "Got it. It's my feature branch, so that should be fine.",
+   "start": 71.94,
+   "end": 74.3
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Okay. Let us know once it's ready for review.",
+   "start": 75.26,
+   "end": 78.42
+  },
+  {
+   "speaker": "David",
+   "text": "Sure. I'll post an update in the PR when the tests pass.",
+   "start": 79.31,
+   "end": 81.87
+  },
+  {
+   "speaker": "James",
+   "text": "Great.",
+   "start": 82.82,
+   "end": 83.11
+  }
+ ]
+}

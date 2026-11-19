@@ -1,0 +1,128 @@
+{
+ "audio": "Lesson-20.mp3",
+ "duration": 138.1,
+ "confidence": "high",
+ "max_rate_deviation": 0.29,
+ "turns": [
+  {
+   "speaker": "Michael",
+   "text": "Okay, so today we wanted to walk through the checkout updates, but Sarah, I know you had a few other things on your mind too.",
+   "start": 0.0,
+   "end": 7.01
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Yeah, actually — quick question before we get into that. Does the new filter feature work properly on mobile?",
+   "start": 7.33,
+   "end": 12.78
+  },
+  {
+   "speaker": "David",
+   "text": "That's a good question, actually. [pause] Let me think about that for a second — I believe it does, but I haven't personally tested it on smaller screens yet.",
+   "start": 13.77,
+   "end": 22.76
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Okay, could you confirm that by tomorrow? And actually, while we're on it — is there any chance we could open this up to a third-party partner's API later?",
+   "start": 23.11,
+   "end": 31.71
+  },
+  {
+   "speaker": "James",
+   "text": "Hmm, that's not something we've discussed yet. I'd need to check that first, since it could have security implications depending on how it's exposed.",
+   "start": 32.63,
+   "end": 41.2
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Right, that makes sense. Sorry, one more thing — could this feature be made configurable per store, or is it hardcoded for now?",
+   "start": 42.15,
+   "end": 50.3
+  },
+  {
+   "speaker": "David",
+   "text": "I'm not sure off the top of my head, honestly. It might be possible with some changes, but I can't confirm without looking at the current implementation.",
+   "start": 51.28,
+   "end": 60.13
+  },
+  {
+   "speaker": "Michael",
+   "text": "Sarah, would it help if David and James put together a short technical assessment covering all three of these?",
+   "start": 60.43,
+   "end": 67.11
+  },
+  {
+   "speaker": "Sarah",
+   "text": "That'd be great, actually. Oh — and while you're at it, could you also check if this could affect page load speed on the homepage?",
+   "start": 67.9,
+   "end": 75.47
+  },
+  {
+   "speaker": "James",
+   "text": "That's a fair concern. Off the top of my head, I'd say it's unlikely, but I don't want to promise something without confirming first.",
+   "start": 76.32,
+   "end": 83.63
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Okay, no problem. I know I'm throwing a lot at you today.",
+   "start": 83.81,
+   "end": 87.24
+  },
+  {
+   "speaker": "David",
+   "text": "It's fine, honestly — better to ask now than assume later and run into issues.",
+   "start": 88.21,
+   "end": 92.21
+  },
+  {
+   "speaker": "Michael",
+   "text": "Alright, so let's recap — mobile testing, third-party API feasibility, per-store configurability, and homepage performance impact.",
+   "start": 93.15,
+   "end": 100.7
+  },
+  {
+   "speaker": "James",
+   "text": "Right, I'll take the security and performance side, and David can handle the mobile and configuration questions.",
+   "start": 101.16,
+   "end": 107.36
+  },
+  {
+   "speaker": "David",
+   "text": "Sounds good. I'll look into it and get back to you with real answers, not guesses.",
+   "start": 108.36,
+   "end": 112.96
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Perfect, that works for me. When do you think you'll have something?",
+   "start": 113.93,
+   "end": 117.86
+  },
+  {
+   "speaker": "Michael",
+   "text": "Let's say by end of week — does that timeline work for everyone?",
+   "start": 118.77,
+   "end": 121.68
+  },
+  {
+   "speaker": "James",
+   "text": "That should be enough time to look into it properly, yeah.",
+   "start": 122.13,
+   "end": 125.04
+  },
+  {
+   "speaker": "David",
+   "text": "Agreed, that gives us room to actually test things instead of just estimating.",
+   "start": 126.0,
+   "end": 129.62
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Great, thanks for being upfront about what you don't know yet — I'd rather have accurate answers later than wrong ones now.",
+   "start": 130.59,
+   "end": 137.31
+  }
+ ]
+}

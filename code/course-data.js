@@ -2,6 +2,9 @@
 const COURSE_DATA = {
   title: "Business English for IT Meetings",
   totalLessons: 24,
+  lessonsPerModule: 4,   // pace: one new lesson per study night, a module takes at most 4 days
+  // Reflex target (average ms from end of question to start of answer) a lesson must reach to count as passed.
+  targetMsByModule: { 1: 3000, 2: 3000, 3: 2500, 4: 2500, 5: 2000, 6: 2000 },
   modules: [
     { number: 1, name: "Surviving the Meeting", goal: "Sống sót qua một buổi meeting cơ bản — nghe hiểu câu hỏi quen thuộc, đưa ra update ngắn.", level: "1", lessons: [
       { number: 1, title: "Daily Stand-up", completed: false },
@@ -49,6 +52,7 @@ COURSE_DATA.lessons = COURSE_DATA.modules.flatMap(module =>
     module: module.number,
     moduleName: module.name,
     level: module.level,
+    targetMs: COURSE_DATA.targetMsByModule[module.number],
     folderName: "",
     files: {}
   }))

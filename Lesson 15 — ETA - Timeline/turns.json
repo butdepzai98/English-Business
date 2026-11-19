@@ -1,0 +1,194 @@
+{
+ "audio": "Lesson-15.mp3",
+ "duration": 137.42,
+ "confidence": "high",
+ "max_rate_deviation": 0.3,
+ "turns": [
+  {
+   "speaker": "Sarah",
+   "text": "Hey David, what's the ETA on the checkout integration? Are we still on track for QA tomorrow?",
+   "start": 0.23,
+   "end": 5.19
+  },
+  {
+   "speaker": "David",
+   "text": "We're mostly on track. The frontend is almost done, but the payment API is taking a little longer than expected.",
+   "start": 5.66,
+   "end": 11.94
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Okay. How much work is left on the backend side?",
+   "start": 12.53,
+   "end": 15.11
+  },
+  {
+   "speaker": "David",
+   "text": "I'd say about three or four hours, assuming I don't hit another issue with the validation.",
+   "start": 15.64,
+   "end": 19.95
+  },
+  {
+   "speaker": "James",
+   "text": "What exactly is causing the delay?",
+   "start": 20.44,
+   "end": 21.98
+  },
+  {
+   "speaker": "David",
+   "text": "The payment provider returns a different response for some failed transactions, so I need to handle that case separately.",
+   "start": 22.47,
+   "end": 28.67
+  },
+  {
+   "speaker": "James",
+   "text": "Got it. Is that something we can work around, or do we need the provider to change anything?",
+   "start": 29.12,
+   "end": 34.79
+  },
+  {
+   "speaker": "David",
+   "text": "We can handle it on our side. I just need to update the response mapping and add a few tests.",
+   "start": 35.26,
+   "end": 40.05
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Okay. So do you still think the development work will be done today?",
+   "start": 40.14,
+   "end": 43.62
+  },
+  {
+   "speaker": "David",
+   "text": "Probably, yeah. I should have the backend changes done this afternoon, but I don't want to promise a specific time until I've finished testing.",
+   "start": 44.05,
+   "end": 52.96
+  },
+  {
+   "speaker": "Sarah",
+   "text": "That's fair. If development slips into tomorrow, what happens to QA?",
+   "start": 53.22,
+   "end": 57.37
+  },
+  {
+   "speaker": "David",
+   "text": "We'd probably need to push QA back by a few hours, unless James can get someone to review the PR quickly.",
+   "start": 57.67,
+   "end": 63.0
+  },
+  {
+   "speaker": "James",
+   "text": "I can take the review as soon as the PR is ready.",
+   "start": 63.54,
+   "end": 65.47
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Okay, that gives us a bit of room. Do we have any other dependencies?",
+   "start": 65.9,
+   "end": 69.22
+  },
+  {
+   "speaker": "David",
+   "text": "The only external dependency is the payment API. Everything else is already available on staging.",
+   "start": 69.3,
+   "end": 73.7
+  },
+  {
+   "speaker": "Sarah",
+   "text": "And is the staging environment stable?",
+   "start": 74.27,
+   "end": 76.05
+  },
+  {
+   "speaker": "David",
+   "text": "Yeah, as far as I know. I haven't seen any issues there today.",
+   "start": 76.53,
+   "end": 80.1
+  },
+  {
+   "speaker": "James",
+   "text": "What's the main risk from your side?",
+   "start": 80.61,
+   "end": 81.93
+  },
+  {
+   "speaker": "David",
+   "text": "The main risk is that the payment provider has more response variations than we've seen so far.",
+   "start": 82.52,
+   "end": 86.98
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Could that push the timeline into tomorrow afternoon?",
+   "start": 87.56,
+   "end": 90.61
+  },
+  {
+   "speaker": "David",
+   "text": "It could, if we find another case that needs a code change. If the current response mapping covers everything, we should still finish today.",
+   "start": 90.84,
+   "end": 98.32
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Okay. So we're still on track, but there's not much buffer.",
+   "start": 98.69,
+   "end": 102.21
+  },
+  {
+   "speaker": "David",
+   "text": "Exactly.",
+   "start": 102.3,
+   "end": 102.53
+  },
+  {
+   "speaker": "James",
+   "text": "What if we move the lower-priority frontend task out of this sprint? That would give David more time if the API needs extra work.",
+   "start": 103.68,
+   "end": 110.2
+  },
+  {
+   "speaker": "Sarah",
+   "text": "I'd rather keep the current scope if we can. Let's wait for David's next update first.",
+   "start": 110.82,
+   "end": 116.37
+  },
+  {
+   "speaker": "David",
+   "text": "Sounds good. I'll finish the response mapping and run the tests, then I'll give you a more accurate ETA.",
+   "start": 116.84,
+   "end": 121.39
+  },
+  {
+   "speaker": "Sarah",
+   "text": "When should we expect that update?",
+   "start": 121.98,
+   "end": 124.17
+  },
+  {
+   "speaker": "David",
+   "text": "In about two hours.",
+   "start": 124.26,
+   "end": 125.05
+  },
+  {
+   "speaker": "James",
+   "text": "Perfect. If you're still on track then, I'll review the PR immediately.",
+   "start": 125.66,
+   "end": 130.32
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Great. Let's keep QA tomorrow as the target for now, but flag it if anything changes.",
+   "start": 130.77,
+   "end": 135.21
+  },
+  {
+   "speaker": "David",
+   "text": "Will do.",
+   "start": 135.73,
+   "end": 136.27
+  }
+ ]
+}

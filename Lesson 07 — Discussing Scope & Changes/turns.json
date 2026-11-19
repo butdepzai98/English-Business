@@ -1,0 +1,128 @@
+{
+ "audio": "Lesson-07.mp3",
+ "duration": 89.93,
+ "confidence": "high",
+ "max_rate_deviation": 0.34,
+ "turns": [
+  {
+   "speaker": "Sarah",
+   "text": "Hey David, the client has asked for one more change to the checkout flow.",
+   "start": 0.18,
+   "end": 4.52
+  },
+  {
+   "speaker": "David",
+   "text": "Okay. What's the change?",
+   "start": 5.55,
+   "end": 7.91
+  },
+  {
+   "speaker": "Sarah",
+   "text": "They want customers to edit their shipping address after selecting a payment method.",
+   "start": 8.92,
+   "end": 13.29
+  },
+  {
+   "speaker": "David",
+   "text": "Got it. Was that included in the original requirement?",
+   "start": 14.36,
+   "end": 17.89
+  },
+  {
+   "speaker": "Sarah",
+   "text": "No, that wasn't part of the original scope.",
+   "start": 18.92,
+   "end": 21.52
+  },
+  {
+   "speaker": "David",
+   "text": "Okay. How much work would that involve?",
+   "start": 22.57,
+   "end": 25.69
+  },
+  {
+   "speaker": "Sarah",
+   "text": "We'd probably need some frontend changes and additional backend validation.",
+   "start": 26.7,
+   "end": 31.08
+  },
+  {
+   "speaker": "David",
+   "text": "Right. Would QA need to update the test cases too?",
+   "start": 32.11,
+   "end": 35.84
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Yeah, I think so. We'd need to cover the new flow.",
+   "start": 36.85,
+   "end": 40.74
+  },
+  {
+   "speaker": "David",
+   "text": "Does that affect the current sprint timeline?",
+   "start": 41.79,
+   "end": 43.74
+  },
+  {
+   "speaker": "Sarah",
+   "text": "It could. We already have a pretty full sprint.",
+   "start": 44.77,
+   "end": 48.29
+  },
+  {
+   "speaker": "David",
+   "text": "Okay. Can we fit this in if we move another task out?",
+   "start": 49.35,
+   "end": 53.05
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Possibly. Which task would you suggest moving?",
+   "start": 54.08,
+   "end": 57.53
+  },
+  {
+   "speaker": "David",
+   "text": "We could move the address history task to the next sprint.",
+   "start": 58.57,
+   "end": 61.19
+  },
+  {
+   "speaker": "Sarah",
+   "text": "That might work. Is the client okay with that?",
+   "start": 62.22,
+   "end": 65.85
+  },
+  {
+   "speaker": "David",
+   "text": "I'm not sure. Should we confirm the priority with them first?",
+   "start": 66.92,
+   "end": 70.78
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Yeah, let's do that before we change the sprint scope.",
+   "start": 71.82,
+   "end": 74.85
+  },
+  {
+   "speaker": "David",
+   "text": "Sounds good. If they want this now, we can explain the trade-off.",
+   "start": 75.88,
+   "end": 80.11
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Exactly. I'll check with the client and update the ticket.",
+   "start": 81.12,
+   "end": 85.24
+  },
+  {
+   "speaker": "David",
+   "text": "Alright. Let me know what they decide.",
+   "start": 86.29,
+   "end": 89.1
+  }
+ ]
+}

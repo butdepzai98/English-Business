@@ -1,0 +1,356 @@
+{
+ "audio": "Lesson-16.mp3",
+ "duration": 269.28,
+ "confidence": "high",
+ "max_rate_deviation": 0.45,
+ "turns": [
+  {
+   "speaker": "Sarah",
+   "text": "Alright, let's go through the project status. Overall, how are we looking for this week?",
+   "start": 0.22,
+   "end": 4.92
+  },
+  {
+   "speaker": "David",
+   "text": "We're still on track. The checkout backend is complete, and I've finished most of the payment integration.",
+   "start": 5.37,
+   "end": 10.52
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Good. What's left on the payment side?",
+   "start": 11.04,
+   "end": 13.02
+  },
+  {
+   "speaker": "David",
+   "text": "There are a few API edge cases I still need to handle. The main flow is working, but I want to cover the failed-payment responses before we call it done.",
+   "start": 13.49,
+   "end": 21.15
+  },
+  {
+   "speaker": "James",
+   "text": "Are those edge cases related to specific payment methods?",
+   "start": 21.6,
+   "end": 24.59
+  },
+  {
+   "speaker": "David",
+   "text": "Mostly, yes. The standard payment flow is stable, but some declined transactions return different error structures from the provider.",
+   "start": 25.07,
+   "end": 32.05
+  },
+  {
+   "speaker": "Emily",
+   "text": "Have you been able to reproduce all of those responses?",
+   "start": 32.55,
+   "end": 35.43
+  },
+  {
+   "speaker": "David",
+   "text": "I've reproduced the main ones. There are still a couple of responses that I can only simulate through the provider's test environment.",
+   "start": 36.41,
+   "end": 42.54
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Are those blocking anything right now?",
+   "start": 43.1,
+   "end": 45.74
+  },
+  {
+   "speaker": "David",
+   "text": "No, not yet. I can continue with the implementation, but they could affect the timeline if the provider has more response variations.",
+   "start": 46.16,
+   "end": 52.76
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Got it. So that's a risk rather than a blocker.",
+   "start": 53.22,
+   "end": 55.16
+  },
+  {
+   "speaker": "David",
+   "text": "Exactly.",
+   "start": 55.62,
+   "end": 56.13
+  },
+  {
+   "speaker": "James",
+   "text": "What's your current confidence level on the backend being ready for QA?",
+   "start": 57.52,
+   "end": 62.41
+  },
+  {
+   "speaker": "David",
+   "text": "I'd say it's in good shape. I just don't want to mark it complete until the error handling is covered properly.",
+   "start": 62.82,
+   "end": 68.67
+  },
+  {
+   "speaker": "Sarah",
+   "text": "How much time do you expect to need for that?",
+   "start": 69.15,
+   "end": 70.92
+  },
+  {
+   "speaker": "David",
+   "text": "Probably another three to four hours. If the provider's test environment behaves as expected, I should be able to finish today.",
+   "start": 71.34,
+   "end": 79.34
+  },
+  {
+   "speaker": "Emily",
+   "text": "Once that's done, will the API contract remain the same?",
+   "start": 80.26,
+   "end": 83.42
+  },
+  {
+   "speaker": "David",
+   "text": "Yes. The response structure for the frontend won't change. I'm just making the backend more consistent when translating the provider errors.",
+   "start": 83.83,
+   "end": 88.32
+  },
+  {
+   "speaker": "James",
+   "text": "Good. That means QA won't need to adjust the existing test cases too much.",
+   "start": 88.76,
+   "end": 94.14
+  },
+  {
+   "speaker": "Sarah",
+   "text": "How about the frontend?",
+   "start": 94.88,
+   "end": 95.7
+  },
+  {
+   "speaker": "David",
+   "text": "The checkout UI is almost finished. There are a couple of validation messages left, and then it should be ready for QA.",
+   "start": 95.93,
+   "end": 100.95
+  },
+  {
+   "speaker": "Emily",
+   "text": "Are those validation messages related to the payment changes?",
+   "start": 101.4,
+   "end": 104.74
+  },
+  {
+   "speaker": "David",
+   "text": "One of them is. The others are standard checkout validation messages.",
+   "start": 105.69,
+   "end": 110.14
+  },
+  {
+   "speaker": "Emily",
+   "text": "Okay. If the payment error mapping stays the same, I shouldn't need much additional frontend work.",
+   "start": 111.01,
+   "end": 115.76
+  },
+  {
+   "speaker": "James",
+   "text": "Have you already pushed the latest changes to staging?",
+   "start": 116.75,
+   "end": 119.38
+  },
+  {
+   "speaker": "David",
+   "text": "Yeah, most of them are on staging. I'm planning to push the remaining changes this afternoon.",
+   "start": 119.86,
+   "end": 124.29
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Are the current staging changes stable enough for anyone to start testing?",
+   "start": 124.81,
+   "end": 129.48
+  },
+  {
+   "speaker": "David",
+   "text": "For the main checkout flow, yes. I'd just prefer QA to wait for the final payment changes before doing the full regression.",
+   "start": 129.78,
+   "end": 136.2
+  },
+  {
+   "speaker": "Emily",
+   "text": "That works. I can start preparing the test data and test scenarios in the meantime.",
+   "start": 137.08,
+   "end": 141.2
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Good. Moving on to QA, do we still have capacity to start testing tomorrow?",
+   "start": 142.2,
+   "end": 147.3
+  },
+  {
+   "speaker": "James",
+   "text": "We should, but QA is also covering the product-page changes this week.",
+   "start": 147.58,
+   "end": 150.78
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Could that affect the checkout testing?",
+   "start": 151.37,
+   "end": 153.95
+  },
+  {
+   "speaker": "James",
+   "text": "It might. We have enough capacity for the main flow, but regression testing could take longer than expected.",
+   "start": 154.42,
+   "end": 159.07
+  },
+  {
+   "speaker": "Emily",
+   "text": "How much time do you think we'll have available for checkout specifically?",
+   "start": 159.58,
+   "end": 163.1
+  },
+  {
+   "speaker": "James",
+   "text": "We can probably dedicate most of the morning to it, but the afternoon is less certain because of the product-page regression.",
+   "start": 164.03,
+   "end": 172.67
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Would that be enough to cover the critical checkout scenarios?",
+   "start": 173.17,
+   "end": 176.73
+  },
+  {
+   "speaker": "Emily",
+   "text": "Yes, if we prioritize the main customer journeys first. I'd start with successful payment, failed payment, discount, shipping, and order placement.",
+   "start": 177.61,
+   "end": 184.66
+  },
+  {
+   "speaker": "David",
+   "text": "That makes sense. If QA needs more time, I can prioritize the payment scenarios first.",
+   "start": 185.08,
+   "end": 190.43
+  },
+  {
+   "speaker": "James",
+   "text": "Exactly. We can separate the critical scenarios from the lower-priority UI regression.",
+   "start": 190.91,
+   "end": 194.9
+  },
+  {
+   "speaker": "Sarah",
+   "text": "What about cross-browser testing?",
+   "start": 195.46,
+   "end": 196.87
+  },
+  {
+   "speaker": "Emily",
+   "text": "I'll cover Chrome and Firefox first. If everything is stable, I'll add Safari afterward.",
+   "start": 197.35,
+   "end": 203.5
+  },
+  {
+   "speaker": "James",
+   "text": "That should be fine. Let's not let browser coverage delay the initial functional testing.",
+   "start": 204.5,
+   "end": 209.23
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Agreed.",
+   "start": 209.8,
+   "end": 210.36
+  },
+  {
+   "speaker": "Sarah",
+   "text": "What about the client-side dependency?",
+   "start": 211.66,
+   "end": 213.23
+  },
+  {
+   "speaker": "David",
+   "text": "We're still waiting on the client to confirm one payment error message.",
+   "start": 213.7,
+   "end": 217.06
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Is that blocking the release?",
+   "start": 217.6,
+   "end": 218.79
+  },
+  {
+   "speaker": "David",
+   "text": "No. We can use the current message for now, but we'd need to update it if the client wants different wording.",
+   "start": 219.41,
+   "end": 224.22
+  },
+  {
+   "speaker": "James",
+   "text": "And that change should be small.",
+   "start": 224.71,
+   "end": 226.2
+  },
+  {
+   "speaker": "Emily",
+   "text": "Would we need a full regression if the wording changes?",
+   "start": 226.74,
+   "end": 229.44
+  },
+  {
+   "speaker": "David",
+   "text": "No. We would just need to verify the affected payment scenarios and make sure the message is displayed correctly.",
+   "start": 230.4,
+   "end": 236.17
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Okay. When do we expect the client to respond?",
+   "start": 236.69,
+   "end": 239.24
+  },
+  {
+   "speaker": "Sarah",
+   "text": "I sent them the question yesterday. I'm planning to follow up again this afternoon.",
+   "start": 239.84,
+   "end": 243.78
+  },
+  {
+   "speaker": "James",
+   "text": "Good. If they don't respond by tomorrow, can we proceed with the current wording?",
+   "start": 244.28,
+   "end": 248.55
+  },
+  {
+   "speaker": "Sarah",
+   "text": "I'd rather confirm with them before the final release. For QA, though, we can continue using the current message.",
+   "start": 249.13,
+   "end": 255.2
+  },
+  {
+   "speaker": "David",
+   "text": "That shouldn't affect development.",
+   "start": 255.67,
+   "end": 257.95
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Okay. As for deployment, are we still targeting Friday?",
+   "start": 258.31,
+   "end": 261.63
+  },
+  {
+   "speaker": "David",
+   "text": "Yes, assuming the API testing doesn't uncover anything major.",
+   "start": 261.96,
+   "end": 265.02
+  },
+  {
+   "speaker": "James",
+   "text": "I'd say Friday is still realistic, but there's not much buffer.",
+   "start": 265.53,
+   "end": 268.92
+  }
+ ]
+}

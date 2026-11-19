@@ -1,0 +1,134 @@
+{
+ "audio": "Lesson-22.mp3",
+ "duration": 137.88,
+ "confidence": "high",
+ "max_rate_deviation": 0.21,
+ "turns": [
+  {
+   "speaker": "Sarah",
+   "text": "Okay so, I know we're close to launch, but my boss just told me this morning that we absolutely need gift wrapping in this release — like, non-negotiable, it has to be there.",
+   "start": 0.22,
+   "end": 8.04
+  },
+  {
+   "speaker": "Michael",
+   "text": "I hear you, Sarah, and I completely understand the pressure you're under, but that wasn't part of the original scope for this release.",
+   "start": 8.24,
+   "end": 15.3
+  },
+  {
+   "speaker": "Sarah",
+   "text": "I know, I know, but — look, can we just squeeze it in? It doesn't seem like it'd be that complicated, right?",
+   "start": 15.87,
+   "end": 21.23
+  },
+  {
+   "speaker": "David",
+   "text": "Actually, it's more involved than it looks — adding gift wrapping means touching the checkout flow, the order summary, and the shipping logic, all of which are already locked for testing.",
+   "start": 21.67,
+   "end": 30.69
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Okay but what if we just did a simplified version, like just a checkbox that says \"gift wrap this,\" nothing fancy?",
+   "start": 31.2,
+   "end": 37.3
+  },
+  {
+   "speaker": "David",
+   "text": "Even a simplified version would mean reopening testing on the whole checkout flow, and honestly, that puts the entire release timeline at risk.",
+   "start": 37.75,
+   "end": 45.53
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Right, no, I get that, but — sorry, can I just add one more thing while we're at it? We also really need the loyalty points to show up in real time now, not just after checkout.",
+   "start": 46.05,
+   "end": 55.28
+  },
+  {
+   "speaker": "Michael",
+   "text": "Wait, hold on — that's actually a separate, fairly significant piece of work on its own, Sarah.",
+   "start": 55.77,
+   "end": 60.38
+  },
+  {
+   "speaker": "Sarah",
+   "text": "I know it's a lot, I know, but my boss is breathing down my neck here, and I just need something I can show him by Friday.",
+   "start": 60.92,
+   "end": 67.14
+  },
+  {
+   "speaker": "David",
+   "text": "Here's the thing — if we try to add both of those now, there's a real risk of introducing new bugs right before launch, which could end up being worse for everyone.",
+   "start": 67.59,
+   "end": 75.56
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Okay, that's fair, I guess I hadn't thought about it that way, honestly.",
+   "start": 76.06,
+   "end": 79.55
+  },
+  {
+   "speaker": "Michael",
+   "text": "Let me be upfront about what's realistic here — we can't commit to both without cutting corners somewhere else, and I don't think that's a risk worth taking this close to launch.",
+   "start": 80.01,
+   "end": 87.43
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Okay, so what CAN we do, then? I still need to bring something back to my boss.",
+   "start": 87.99,
+   "end": 91.85
+  },
+  {
+   "speaker": "David",
+   "text": "What I can do is ship the gift-wrapping checkbox as a fast follow, maybe two or three days after launch, once the core release is stable.",
+   "start": 92.31,
+   "end": 99.0
+  },
+  {
+   "speaker": "Sarah",
+   "text": "And the loyalty points thing?",
+   "start": 99.54,
+   "end": 100.66
+  },
+  {
+   "speaker": "Michael",
+   "text": "That one's bigger — I'd suggest we scope it properly next sprint instead of rushing it in now.",
+   "start": 101.34,
+   "end": 105.67
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Hmm, okay. Can we agree on a version that's doable by the deadline, and revisit the rest afterward?",
+   "start": 106.21,
+   "end": 111.69
+  },
+  {
+   "speaker": "David",
+   "text": "Yeah, that works for me — ship what's stable now, follow up with gift wrapping shortly after, and properly plan the loyalty points feature for next sprint.",
+   "start": 112.17,
+   "end": 120.01
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Alright, I can work with that. Honestly, thanks for being straight with me instead of just saying yes to everything.",
+   "start": 120.55,
+   "end": 126.37
+  },
+  {
+   "speaker": "Michael",
+   "text": "Of course — we'd rather be upfront now than promise something we can't deliver later.",
+   "start": 126.81,
+   "end": 130.74
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Yeah, I appreciate that. Okay, let me go talk to my boss with this plan and I'll follow up if anything changes.",
+   "start": 131.31,
+   "end": 137.57
+  }
+ ]
+}

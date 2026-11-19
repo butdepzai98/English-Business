@@ -1,0 +1,278 @@
+{
+ "audio": "Lesson-17.mp3",
+ "duration": 276.91,
+ "confidence": "high",
+ "max_rate_deviation": 0.37,
+ "turns": [
+  {
+   "speaker": "Sarah",
+   "text": "Hey, thanks for jumping on this. So I was testing the new filter yesterday, and something felt a little off.",
+   "start": 0.23,
+   "end": 5.93
+  },
+  {
+   "speaker": "Michael",
+   "text": "Sure, what were you seeing exactly?",
+   "start": 6.38,
+   "end": 8.03
+  },
+  {
+   "speaker": "Sarah",
+   "text": "When I select two filters together, like brand and price range, some products just disappear. Even products that should match both filters aren't showing up.",
+   "start": 8.55,
+   "end": 17.41
+  },
+  {
+   "speaker": "Emily",
+   "text": "Does it happen with every combination of filters, or only specific ones?",
+   "start": 17.91,
+   "end": 21.92
+  },
+  {
+   "speaker": "Sarah",
+   "text": "It seems to happen mostly when I combine brand with price range. I haven't tested every possible combination yet.",
+   "start": 22.93,
+   "end": 28.75
+  },
+  {
+   "speaker": "David",
+   "text": "Right, yeah. That's actually related to how the indexing currently works for combined attributes.",
+   "start": 29.28,
+   "end": 34.96
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Okay, but why would it work that way? From a user's point of view, that looks like a bug.",
+   "start": 35.97,
+   "end": 40.77
+  },
+  {
+   "speaker": "David",
+   "text": "I understand. The filters are indexed separately, and when you combine them, the system relies on the indexed attribute combinations available at that point.",
+   "start": 41.27,
+   "end": 49.64
+  },
+  {
+   "speaker": "Michael",
+   "text": "So the system isn't actually checking the product data in real time?",
+   "start": 50.59,
+   "end": 53.65
+  },
+  {
+   "speaker": "David",
+   "text": "Correct. It's querying the search index rather than the product database directly.",
+   "start": 54.16,
+   "end": 58.79
+  },
+  {
+   "speaker": "Sarah",
+   "text": "And that's why some valid products are missing?",
+   "start": 59.77,
+   "end": 61.64
+  },
+  {
+   "speaker": "David",
+   "text": "Exactly. If the relevant attribute combination isn't represented correctly in the index, the product won't appear in the filtered result.",
+   "start": 62.16,
+   "end": 69.24
+  },
+  {
+   "speaker": "Emily",
+   "text": "Is the product itself still available if you search for it without applying the filters?",
+   "start": 70.23,
+   "end": 74.54
+  },
+  {
+   "speaker": "David",
+   "text": "Yes, in most cases. The product data itself isn't missing. The problem is with how the filter criteria are being applied to the indexed data.",
+   "start": 75.57,
+   "end": 84.17
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Hmm, I don't fully follow, but would it be possible to change that?",
+   "start": 85.19,
+   "end": 88.78
+  },
+  {
+   "speaker": "David",
+   "text": "Technically, yes, but it wouldn't be a small change. We'd need to review the indexing logic and potentially rebuild part of the indexer.",
+   "start": 89.32,
+   "end": 96.42
+  },
+  {
+   "speaker": "Michael",
+   "text": "How much of the search system would that affect?",
+   "start": 97.38,
+   "end": 100.91
+  },
+  {
+   "speaker": "David",
+   "text": "Potentially quite a lot. The same indexing logic is used by category pages and search results, so we'd need to be careful not to improve filtering accuracy while making the overall search slower.",
+   "start": 101.81,
+   "end": 109.85
+  },
+  {
+   "speaker": "Sarah",
+   "text": "So we're basically trading accuracy for performance?",
+   "start": 110.86,
+   "end": 113.57
+  },
+  {
+   "speaker": "David",
+   "text": "Exactly. We could make the filtering more accurate, but depending on the implementation, category pages with a large number of products could become noticeably slower.",
+   "start": 114.12,
+   "end": 122.76
+  },
+  {
+   "speaker": "Emily",
+   "text": "Do we have any numbers on the performance impact?",
+   "start": 123.71,
+   "end": 126.17
+  },
+  {
+   "speaker": "David",
+   "text": "Not yet. I haven't tested the alternative implementation, so I don't want to guess.",
+   "start": 127.17,
+   "end": 132.0
+  },
+  {
+   "speaker": "Michael",
+   "text": "Could we benchmark the current implementation against the proposed one?",
+   "start": 132.95,
+   "end": 136.99
+  },
+  {
+   "speaker": "David",
+   "text": "Yes. That's actually what I'd recommend before making any decision.",
+   "start": 137.92,
+   "end": 140.58
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Is there a reason we can't just test it on a few categories first?",
+   "start": 141.62,
+   "end": 146.36
+  },
+  {
+   "speaker": "David",
+   "text": "That's a reasonable approach. We could enable the alternative indexing logic for a limited set of categories and compare the results.",
+   "start": 147.29,
+   "end": 155.07
+  },
+  {
+   "speaker": "Emily",
+   "text": "From QA's side, I'd prefer that. We could select categories with a large number of products and test several filter combinations.",
+   "start": 155.92,
+   "end": 163.85
+  },
+  {
+   "speaker": "Michael",
+   "text": "That would also give us some real performance data instead of relying on assumptions.",
+   "start": 164.0,
+   "end": 168.94
+  },
+  {
+   "speaker": "David",
+   "text": "Exactly. We could monitor response time, index size, and the number of products returned for each filter combination.",
+   "start": 169.06,
+   "end": 176.3
+  },
+  {
+   "speaker": "Sarah",
+   "text": "How many categories would you suggest for the initial test?",
+   "start": 176.83,
+   "end": 180.47
+  },
+  {
+   "speaker": "David",
+   "text": "Maybe three or four. I'd choose one small category, one medium-sized category, and one or two large categories.",
+   "start": 180.65,
+   "end": 186.77
+  },
+  {
+   "speaker": "Emily",
+   "text": "I'd also include categories with a lot of products sharing the same brand and price ranges. That should make the issue easier to reproduce.",
+   "start": 186.94,
+   "end": 193.7
+  },
+  {
+   "speaker": "David",
+   "text": "Good point. Those categories would give us more useful data.",
+   "start": 194.73,
+   "end": 198.38
+  },
+  {
+   "speaker": "Sarah",
+   "text": "What would happen if we just left it as is for now?",
+   "start": 199.4,
+   "end": 201.3
+  },
+  {
+   "speaker": "Michael",
+   "text": "Most users probably won't notice because the common single-filter scenarios still work. But the combined-filter issue could create confusing search results.",
+   "start": 201.74,
+   "end": 209.68
+  },
+  {
+   "speaker": "Emily",
+   "text": "And it could be difficult for QA to treat it as a simple UI issue because the missing products are caused by backend indexing.",
+   "start": 210.19,
+   "end": 217.13
+  },
+  {
+   "speaker": "Sarah",
+   "text": "So would you consider it a blocker?",
+   "start": 218.09,
+   "end": 219.44
+  },
+  {
+   "speaker": "David",
+   "text": "I wouldn't call it a blocker for the current release. The existing functionality still works for the majority of use cases.",
+   "start": 219.95,
+   "end": 226.3
+  },
+  {
+   "speaker": "Michael",
+   "text": "I agree. But I'd definitely keep it on the backlog because it affects the accuracy of the filtering experience.",
+   "start": 227.26,
+   "end": 232.78
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Okay. What would be the risk of leaving it unchanged for another sprint?",
+   "start": 233.32,
+   "end": 236.84
+  },
+  {
+   "speaker": "David",
+   "text": "The main risk is that users could assume products are unavailable when they're actually available. There's also a chance we'll have to explain inconsistent filter results to the client.",
+   "start": 237.41,
+   "end": 248.61
+  },
+  {
+   "speaker": "Emily",
+   "text": "We should probably document the current behavior so QA doesn't report the same thing repeatedly as a new defect.",
+   "start": 248.72,
+   "end": 253.76
+  },
+  {
+   "speaker": "Michael",
+   "text": "Good idea. We can mark it as a known limitation until we decide whether to change the indexing logic.",
+   "start": 254.7,
+   "end": 260.83
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Alright. Just so I understand correctly: for now, nothing changes, but David will investigate a limited rollout?",
+   "start": 261.27,
+   "end": 267.17
+  },
+  {
+   "speaker": "David",
+   "text": "That's right. I'll put together a quick estimate for the alternative approach and identify which categories would be suitable for testing.",
+   "start": 267.72,
+   "end": 276.01
+  }
+ ]
+}

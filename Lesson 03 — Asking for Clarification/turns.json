@@ -1,0 +1,92 @@
+{
+ "audio": "Lesson-03.mp3",
+ "duration": 60.26,
+ "confidence": "high",
+ "max_rate_deviation": 0.48,
+ "turns": [
+  {
+   "speaker": "Sarah",
+   "text": "Hey David, for the new checkout, we want users to save their billing information.",
+   "start": 0.18,
+   "end": 4.89
+  },
+  {
+   "speaker": "David",
+   "text": "Sorry, I didn't catch that last part. Can you say it again?",
+   "start": 5.94,
+   "end": 11.5
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Sure. Users should be able to save their billing information during checkout.",
+   "start": 12.41,
+   "end": 17.85
+  },
+  {
+   "speaker": "David",
+   "text": "Okay. Do you mean we save it automatically?",
+   "start": 18.85,
+   "end": 22.53
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Not exactly. They should be able to choose whether to save it.",
+   "start": 23.43,
+   "end": 28.07
+  },
+  {
+   "speaker": "David",
+   "text": "Ah, okay. So we need a checkbox for that?",
+   "start": 29.08,
+   "end": 30.61
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Yeah, that's what we're thinking.",
+   "start": 31.65,
+   "end": 33.44
+  },
+  {
+   "speaker": "David",
+   "text": "Got it. And should the checkbox be selected by default?",
+   "start": 34.51,
+   "end": 38.13
+  },
+  {
+   "speaker": "Sarah",
+   "text": "No, it should be unchecked by default.",
+   "start": 39.18,
+   "end": 41.55
+  },
+  {
+   "speaker": "David",
+   "text": "Okay, just to clarify, users have to check it before we save their information, right?",
+   "start": 42.67,
+   "end": 49.29
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Exactly.",
+   "start": 50.49,
+   "end": 50.95
+  },
+  {
+   "speaker": "David",
+   "text": "Alright, that makes sense.",
+   "start": 51.23,
+   "end": 53.62
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Cool. Let me know if anything else is unclear.",
+   "start": 54.53,
+   "end": 57.26
+  },
+  {
+   "speaker": "David",
+   "text": "Sure, will do.",
+   "start": 58.37,
+   "end": 59.4
+  }
+ ]
+}

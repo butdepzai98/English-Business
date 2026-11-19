@@ -1,0 +1,152 @@
+{
+ "audio": "Lesson-21.mp3",
+ "duration": 125.16,
+ "confidence": "high",
+ "max_rate_deviation": 0.26,
+ "turns": [
+  {
+   "speaker": "Michael",
+   "text": "Alright, let's get started. First up — David, where are we with that checkout bug from last week?",
+   "start": 0.0,
+   "end": 5.26
+  },
+  {
+   "speaker": "David",
+   "text": "It's still being investigated. Emily found a related case yesterday that might actually be the same root cause.",
+   "start": 5.81,
+   "end": 11.71
+  },
+  {
+   "speaker": "Emily",
+   "text": "Right, and once we pin that down, we should have a fix pretty quickly, but I don't have a solid ETA yet.",
+   "start": 12.71,
+   "end": 18.12
+  },
+  {
+   "speaker": "Michael",
+   "text": "Okay, let's circle back to that in a second. James, quick one — has the new referral requirement been scoped out yet?",
+   "start": 18.57,
+   "end": 24.65
+  },
+  {
+   "speaker": "James",
+   "text": "Not fully, actually. There are still a couple of open items around how points get calculated across multiple orders.",
+   "start": 25.16,
+   "end": 31.43
+  },
+  {
+   "speaker": "Michael",
+   "text": "Got it. Can we park that for now and loop back once you've talked to the client?",
+   "start": 31.89,
+   "end": 36.79
+  },
+  {
+   "speaker": "James",
+   "text": "Yeah, that works. I'll have more clarity by tomorrow's client call.",
+   "start": 37.24,
+   "end": 40.48
+  },
+  {
+   "speaker": "Michael",
+   "text": "Perfect. Now, going back to the bug — David, does that affect our deployment plan for this week?",
+   "start": 40.88,
+   "end": 46.25
+  },
+  {
+   "speaker": "David",
+   "text": "It might. If the fix isn't ready by Wednesday, I'd recommend holding off on the deploy until next week instead.",
+   "start": 47.14,
+   "end": 51.66
+  },
+  {
+   "speaker": "Emily",
+   "text": "I'd agree with that — deploying with a known bug on checkout feels risky, especially before the weekend.",
+   "start": 52.67,
+   "end": 58.03
+  },
+  {
+   "speaker": "Michael",
+   "text": "Makes sense. So, tentatively, deployment's on hold pending the bug fix — is everyone okay with that?",
+   "start": 58.5,
+   "end": 63.97
+  },
+  {
+   "speaker": "James",
+   "text": "Sounds reasonable to me, yeah.",
+   "start": 64.5,
+   "end": 66.01
+  },
+  {
+   "speaker": "David",
+   "text": "Agreed, better safe than sorry on checkout issues.",
+   "start": 66.48,
+   "end": 69.12
+  },
+  {
+   "speaker": "Michael",
+   "text": "Alright, moving on — where does that leave us on the overall sprint ETA?",
+   "start": 70.06,
+   "end": 73.67
+  },
+  {
+   "speaker": "Emily",
+   "text": "Honestly, it's a bit uncertain right now, since the bug fix timeline isn't locked down yet.",
+   "start": 74.18,
+   "end": 79.0
+  },
+  {
+   "speaker": "David",
+   "text": "If we get the fix out by Wednesday like planned, I think we're still roughly on track.",
+   "start": 79.52,
+   "end": 83.42
+  },
+  {
+   "speaker": "Michael",
+   "text": "Okay, and if it slips past Wednesday?",
+   "start": 84.36,
+   "end": 86.18
+  },
+  {
+   "speaker": "David",
+   "text": "Then the ETA probably shifts by a couple of days, depending on how testing goes afterward.",
+   "start": 86.68,
+   "end": 91.17
+  },
+  {
+   "speaker": "Michael",
+   "text": "Understood. Let's plan for that possibility, just in case. James, can you keep the client loosely informed without overcommitting to a date?",
+   "start": 92.11,
+   "end": 99.46
+  },
+  {
+   "speaker": "James",
+   "text": "Sure, I'll mention there's a small risk without giving a hard deadline.",
+   "start": 99.94,
+   "end": 103.27
+  },
+  {
+   "speaker": "Michael",
+   "text": "Great. So, to summarize — David and Emily are chasing down the bug, James is finalizing the referral requirement by tomorrow, and deployment's paused until the bug's resolved.",
+   "start": 103.75,
+   "end": 113.35
+  },
+  {
+   "speaker": "Emily",
+   "text": "Sounds right to me.",
+   "start": 113.92,
+   "end": 114.82
+  },
+  {
+   "speaker": "David",
+   "text": "Yep, I'll update everyone as soon as we've confirmed the root cause.",
+   "start": 115.78,
+   "end": 119.0
+  },
+  {
+   "speaker": "Michael",
+   "text": "Perfect, thanks everyone — let's regroup same time next week, or sooner if anything changes.",
+   "start": 119.93,
+   "end": 124.85
+  }
+ ]
+}

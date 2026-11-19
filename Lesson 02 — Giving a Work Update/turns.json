@@ -1,0 +1,92 @@
+{
+ "audio": "Lesson-02.mp3",
+ "duration": 42.79,
+ "confidence": "high",
+ "max_rate_deviation": 0.34,
+ "turns": [
+  {
+   "speaker": "Sarah",
+   "text": "Hey David, can I get an update on the checkout feature?",
+   "start": 0.24,
+   "end": 2.86
+  },
+  {
+   "speaker": "David",
+   "text": "Sure. I finished most of the backend work yesterday.",
+   "start": 3.36,
+   "end": 6.18
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Okay, and where are we on the frontend?",
+   "start": 6.72,
+   "end": 8.9
+  },
+  {
+   "speaker": "David",
+   "text": "I'm still working on it. I have a few things left to finish.",
+   "start": 9.41,
+   "end": 12.29
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Got it. How's the progress so far?",
+   "start": 12.88,
+   "end": 15.15
+  },
+  {
+   "speaker": "David",
+   "text": "Pretty good. The main flow is working, but I need to fix some validation.",
+   "start": 15.64,
+   "end": 19.62
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Okay. Do you think you can finish that today?",
+   "start": 20.17,
+   "end": 22.35
+  },
+  {
+   "speaker": "David",
+   "text": "Yeah, I should have it done by the end of the day.",
+   "start": 22.81,
+   "end": 25.89
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Alright. Are we still on track for testing tomorrow?",
+   "start": 26.36,
+   "end": 29.12
+  },
+  {
+   "speaker": "David",
+   "text": "I think so. If everything goes well, we can start testing tomorrow morning.",
+   "start": 29.54,
+   "end": 33.83
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Sounds good. Anything you need from me?",
+   "start": 34.27,
+   "end": 36.04
+  },
+  {
+   "speaker": "David",
+   "text": "No, I think I'm good for now.",
+   "start": 36.33,
+   "end": 38.2
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Okay, keep me posted if anything changes.",
+   "start": 38.57,
+   "end": 40.6
+  },
+  {
+   "speaker": "David",
+   "text": "Sure, will do.",
+   "start": 41.07,
+   "end": 41.75
+  }
+ ]
+}

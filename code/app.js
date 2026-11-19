@@ -1,12 +1,19 @@
 const state = {
   lessons: COURSE_DATA.lessons.map(lesson => ({ ...lesson, files: {}, folderName: "" })),
   currentLesson: null,
+  view: "home",
   loadToken: 0
 };
 
 const COMPLETION_STORAGE_KEY = "business-english-it-meetings.completed-lessons";
 
 const els = {
+  homeView: document.getElementById("homeView"),
+  homeButton: document.getElementById("homeButton"),
+  menuButton: document.getElementById("menuButton"),
+  topHomeButton: document.getElementById("topHomeButton"),
+  topbarTitle: document.getElementById("topbarTitle"),
+  drawerBackdrop: document.getElementById("drawerBackdrop"),
   lessonSearch: document.getElementById("lessonSearch"),
   courseTree: document.getElementById("courseTree"),
   progressText: document.getElementById("progressText"),
@@ -27,6 +34,10 @@ document.querySelectorAll(".tab").forEach(btn => {
 
 els.lessonSearch.addEventListener("input", filterLessons);
 els.completionButton.addEventListener("click", toggleCurrentLessonCompletion);
+els.homeButton.addEventListener("click", showHome);
+els.topHomeButton.addEventListener("click", showHome);
+els.menuButton.addEventListener("click", () => setDrawer(!document.body.classList.contains("drawer-open")));
+els.drawerBackdrop.addEventListener("click", () => setDrawer(false));
 window.addEventListener("keydown", handleKeyboard);
 window.addEventListener("load", init);
 
@@ -35,11 +46,30 @@ async function init() {
   // The full course tree is available immediately from course-data.js.
   renderTree();
   updateProgress();
-  await selectLesson("L01");
+  showHome();
 
   // Lesson folders are siblings of index.html. We only probe predictable URLs;
   // no directory picker or filesystem permission is required.
   await loadAllLessonFilesDirectly();
+}
+
+// On narrow screens the sidebar is an off-canvas drawer; on desktop these are no-ops.
+function setDrawer(open) {
+  document.body.classList.toggle("drawer-open", open);
+  els.menuButton.setAttribute("aria-expanded", String(open));
+}
+
+function showHome() {
+  setDrawer(false);
+  els.topbarTitle.textContent = "Hôm nay";
+  stopTraining();
+  state.view = "home";
+  state.currentLesson = null;
+  els.lessonView.classList.add("hidden");
+  els.homeView.classList.remove("hidden");
+  els.homeButton.classList.add("active");
+  renderTree(els.lessonSearch.value);
+  renderHome();
 }
 
 async function loadAllLessonFilesDirectly() {
@@ -51,7 +81,6 @@ async function loadAllLessonFilesDirectly() {
     await selectLesson(state.currentLesson.id, { reloadFiles: false });
   }
 }
-
 function lessonFolderCandidates(lesson) {
   const n = String(lesson.number).padStart(2, "0");
   const title = lesson.title;
@@ -73,7 +102,8 @@ function lessonFileCandidates(lesson, folder) {
       `${folder}/Lesson-${lesson.number}.mp3`,
       `${folder}/lesson-${n}.mp3`,
       `${folder}/lesson.mp3`
-    ]
+    ],
+    turns: [`${folder}/turns.json`]
   };
 }
 
@@ -88,6 +118,7 @@ async function discoverLessonFiles(lesson) {
     found.md = await firstExistingUrl(candidates.md);
     found.tts = await firstExistingUrl(candidates.tts);
     found.mp3 = await firstExistingUrl(candidates.mp3);
+    found.turns = await firstExistingUrl(candidates.turns);
 
     if (Object.values(found).some(Boolean)) {
       lesson.folderName = folder;
@@ -135,10 +166,17 @@ async function selectLesson(id, options = {}) {
   const lesson = state.lessons.find(x => x.id === id);
   if (!lesson) return;
 
+  setDrawer(false);
+  stopTraining();
+  state.view = "lesson";
   state.currentLesson = lesson;
+  els.homeView.classList.add("hidden");
+  els.homeButton.classList.remove("active");
+  els.lessonView.classList.remove("hidden");
   renderTree(els.lessonSearch.value);
 
   els.lessonTitle.textContent = `${lesson.id} — ${lesson.title}`;
+  els.topbarTitle.textContent = `${lesson.id} — ${lesson.title}`;
   els.lessonMeta.textContent = `Module ${lesson.module} · Level ${lesson.level}`;
 
   els.lessonBadges.innerHTML = "";
@@ -191,7 +229,7 @@ async function renderLesson(lesson, token) {
     els.lessonPanel.innerHTML = `<div class="lesson-content"><p>Lesson này chưa có <code>lesson.md</code>.</p><p class="muted-note">Danh sách lesson được lấy từ <code>course-data.js</code>, nên lesson vẫn hiển thị dù thư mục nội dung chưa tồn tại.</p></div>`;
   }
 
-  els.audioPanel.innerHTML = renderAudio(lesson.files.mp3 || null, lesson, transcript);
+  await mountTrain(lesson, transcript, token);
 }
 
 function restoreCompletionState() {
@@ -212,6 +250,7 @@ function toggleCurrentLessonCompletion() {
   if (!lesson) return;
 
   lesson.completed = !lesson.completed;
+  if (lesson.completed) markPracticeDay();
   saveCompletionState();
   updateProgress();
   renderTree(els.lessonSearch.value);
@@ -243,20 +282,6 @@ async function fetchText(url) {
   const response = await fetch(url, { cache: "no-store" });
   if (!response.ok) throw new Error(`HTTP ${response.status}: ${url}`);
   return response.text();
-}
-
-function renderAudio(url, lesson, transcript) {
-  const audio = url
-    ? `<audio controls preload="metadata" src="${escapeHtml(url)}"></audio>`
-    : `<div class="audio-empty">Lesson này chưa có file MP3.</div>`;
-
-  const bubbles = transcript
-    ? parseTranscript(transcript)
-        .map(x => `<div class="bubble"><span class="speaker">${escapeHtml(x.speaker)}:</span> <span class="utterance">${escapeHtml(x.text)}</span></div>`)
-        .join("")
-    : `<div class="audio-empty">Lesson này chưa có <code>script_tts.txt</code>.</div>`;
-
-  return `<div class="audio-card"><div class="audio-title"><div class="audio-icon">♪</div><div><h3>Lesson-${String(lesson.number).padStart(2, "0")}.mp3</h3><p>${countSpeakers(transcript)} giọng · Multi-speaker</p></div></div>${audio}<div class="transcript-title">Transcript</div><div class="bubbles">${bubbles}</div></div>`;
 }
 
 function renderTree(filter = "") {
@@ -307,6 +332,15 @@ function renderTree(filter = "") {
 
       button.append(status, code, name);
 
+      const reflex = lessonReflexLabel(lesson.id);
+      if (reflex) {
+        const badge = document.createElement("span");
+        badge.className = "lesson-reflex";
+        badge.title = "Thời gian phản xạ trung bình lần drill gần nhất (✔ = đã đạt ngưỡng của module)";
+        badge.textContent = reflex;
+        button.appendChild(badge);
+      }
+
       const hasFiles = Object.keys(lesson.files || {}).length > 0;
       if (!hasFiles) {
         const missing = document.createElement("span");
@@ -345,11 +379,6 @@ function parseTranscript(text) {
   return result;
 }
 
-function countSpeakers(text) {
-  if (!text) return 0;
-  return new Set(parseTranscript(text).map(x => x.speaker)).size;
-}
-
 function switchTab(tabName) {
   document.querySelectorAll(".tab").forEach(btn =>
     btn.classList.toggle("active", btn.dataset.tab === tabName)
@@ -370,13 +399,16 @@ function updateProgress() {
 
 function handleKeyboard(event) {
   if (event.ctrlKey || event.metaKey || event.altKey) return;
+  if (event.target.closest?.("input, select, textarea")) return;
+  if (event.key === "Escape") setDrawer(false);
 
   if (event.key === "/" && document.activeElement !== els.lessonSearch) {
     event.preventDefault();
     els.lessonSearch.focus();
   }
 
-  if (!state.currentLesson) return;
+  // Arrow keys move between lessons only while a lesson is open and no drill is running.
+  if (!state.currentLesson || state.view !== "lesson" || train.mode !== "idle") return;
   const index = state.lessons.findIndex(x => x.id === state.currentLesson.id);
 
   if ((event.key === "ArrowDown" || event.key === "ArrowRight") && index < state.lessons.length - 1) {

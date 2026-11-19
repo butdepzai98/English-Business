@@ -1,0 +1,170 @@
+{
+ "audio": "Lesson-13.mp3",
+ "duration": 100.18,
+ "confidence": "high",
+ "max_rate_deviation": 0.43,
+ "turns": [
+  {
+   "speaker": "James",
+   "text": "Okay, how's testing going on the latest checkout build?",
+   "start": 0.14,
+   "end": 2.74
+  },
+  {
+   "speaker": "Emily",
+   "text": "Pretty good overall. Most of the test cases have passed, but I found one issue with discount codes.",
+   "start": 3.3,
+   "end": 9.57
+  },
+  {
+   "speaker": "David",
+   "text": "Okay. What happens?",
+   "start": 10.53,
+   "end": 11.23
+  },
+  {
+   "speaker": "Emily",
+   "text": "The discount gets removed when I switch from standard shipping to express shipping.",
+   "start": 12.23,
+   "end": 16.33
+  },
+  {
+   "speaker": "David",
+   "text": "Hmm, okay. Can you reproduce it consistently?",
+   "start": 16.89,
+   "end": 20.42
+  },
+  {
+   "speaker": "Emily",
+   "text": "Yeah, every time so far. I've tested it on Chrome and Firefox.",
+   "start": 21.35,
+   "end": 25.57
+  },
+  {
+   "speaker": "David",
+   "text": "Got it. What are the steps to reproduce it?",
+   "start": 26.12,
+   "end": 28.94
+  },
+  {
+   "speaker": "Emily",
+   "text": "Apply a discount code, go to checkout, and then change the shipping method.",
+   "start": 29.98,
+   "end": 33.82
+  },
+  {
+   "speaker": "David",
+   "text": "And the discount disappears after that?",
+   "start": 34.39,
+   "end": 36.0
+  },
+  {
+   "speaker": "Emily",
+   "text": "Exactly.",
+   "start": 37.0,
+   "end": 37.7
+  },
+  {
+   "speaker": "David",
+   "text": "Okay. I'll check the checkout totals and discount validation.",
+   "start": 38.9,
+   "end": 42.73
+  },
+  {
+   "speaker": "James",
+   "text": "Is that blocking the release?",
+   "start": 43.67,
+   "end": 44.89
+  },
+  {
+   "speaker": "Emily",
+   "text": "I don't think so. Customers can still complete the order, but the final total is wrong.",
+   "start": 45.59,
+   "end": 50.54
+  },
+  {
+   "speaker": "James",
+   "text": "Right. I'd still consider that pretty serious because it affects pricing.",
+   "start": 51.0,
+   "end": 54.34
+  },
+  {
+   "speaker": "David",
+   "text": "Yeah, I agree. I'll prioritize that one.",
+   "start": 54.86,
+   "end": 58.24
+  },
+  {
+   "speaker": "Emily",
+   "text": "There's also a small UI issue on the mobile checkout.",
+   "start": 59.23,
+   "end": 61.86
+  },
+  {
+   "speaker": "David",
+   "text": "What's wrong with it?",
+   "start": 62.44,
+   "end": 63.26
+  },
+  {
+   "speaker": "Emily",
+   "text": "The shipping method buttons aren't aligned correctly on smaller screens.",
+   "start": 64.27,
+   "end": 68.19
+  },
+  {
+   "speaker": "David",
+   "text": "Okay. Is that blocking?",
+   "start": 68.73,
+   "end": 70.84
+  },
+  {
+   "speaker": "Emily",
+   "text": "No, it's just a layout issue.",
+   "start": 71.88,
+   "end": 73.63
+  },
+  {
+   "speaker": "James",
+   "text": "Alright. Let's focus on the discount issue first.",
+   "start": 74.09,
+   "end": 76.61
+  },
+  {
+   "speaker": "David",
+   "text": "Sure. I should have a fix ready in about an hour.",
+   "start": 77.16,
+   "end": 80.22
+  },
+  {
+   "speaker": "James",
+   "text": "Once you push it to staging, Emily, can you retest the discount flow?",
+   "start": 81.17,
+   "end": 84.7
+  },
+  {
+   "speaker": "Emily",
+   "text": "Yeah, I'll rerun the same test cases and do a quick regression check.",
+   "start": 85.21,
+   "end": 88.84
+  },
+  {
+   "speaker": "David",
+   "text": "Sounds good. I'll let you know as soon as the new build is up.",
+   "start": 89.38,
+   "end": 92.98
+  },
+  {
+   "speaker": "James",
+   "text": "Perfect. If that passes, we can make the final call on the release.",
+   "start": 93.93,
+   "end": 97.51
+  },
+  {
+   "speaker": "Emily",
+   "text": "Got it. I'll keep you posted.",
+   "start": 98.07,
+   "end": 99.87
+  }
+ ]
+}

@@ -2,14 +2,33 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#181818">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="English">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
   <title>Business English for IT Meetings</title>
   <link rel="stylesheet" href="code/style.css">
 </head>
 <body>
+  <!-- Phone / tablet only: the lesson list becomes a drawer opened from here. -->
+  <header class="topbar">
+    <button id="menuButton" class="topbar-btn" type="button" aria-label="Danh sách lesson" aria-expanded="false">☰</button>
+    <div id="topbarTitle" class="topbar-title">Hôm nay</div>
+    <button id="topHomeButton" class="topbar-btn" type="button" aria-label="Trang Hôm nay">🏠</button>
+  </header>
+  <div id="drawerBackdrop" class="drawer-backdrop"></div>
+
   <div class="app-shell">
     <aside class="sidebar">
       <div class="sidebar-top">
+        <button id="homeButton" class="home-btn" type="button">
+          <span class="home-btn-title">🏠 Hôm nay</span>
+          <span class="home-btn-goal">Mục tiêu: nói chuyện trực tiếp với khách — không qua PM</span>
+        </button>
         <input id="lessonSearch" class="search" type="search" placeholder="Gõ số lesson..." autocomplete="off">
         <div class="progress-label">
           <span id="progressText">0 / 24 lesson</span>
@@ -21,12 +40,12 @@
     </aside>
 
     <main class="main">
-      <div id="welcome" class="welcome hidden"></div>
+      <section id="homeView" class="home-view"></section>
 
-      <section id="lessonView" class="lesson-view">
+      <section id="lessonView" class="lesson-view hidden">
         <nav class="tabs" aria-label="Lesson navigation">
-          <button class="tab active" data-tab="audio">Learn</button>
-          <button class="tab" data-tab="lesson">Description</button>
+          <button class="tab active" data-tab="audio">Train</button>
+          <button class="tab" data-tab="lesson">Notes</button>
         </nav>
 
         <header class="lesson-header">
@@ -48,5 +67,6 @@
 
   <script src="code/course-data.js"></script>
   <script src="code/app.js"></script>
+  <script src="code/train.js"></script>
 </body>
 </html>

@@ -1,0 +1,176 @@
+{
+ "audio": "Lesson-24.mp3",
+ "duration": 157.3,
+ "confidence": "high",
+ "max_rate_deviation": 0.34,
+ "turns": [
+  {
+   "speaker": "Michael",
+   "text": "Alright, thanks everyone for making time — Sarah's joining us today too, so let's do a quick status recap before we dive into anything else.",
+   "start": 0.0,
+   "end": 6.84
+  },
+  {
+   "speaker": "David",
+   "text": "Sure — overall we're in decent shape. Most of the sprint's done, PR's up for review, just waiting on James to take a look.",
+   "start": 7.36,
+   "end": 14.49
+  },
+  {
+   "speaker": "James",
+   "text": "Yeah, I saw it this morning, there's actually a small merge conflict on the checkout branch, but that should be quick to resolve.",
+   "start": 15.45,
+   "end": 21.02
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Sorry, before we go further — can I just clarify something about the referral requirement? I wasn't totally sure what got decided last time.",
+   "start": 21.55,
+   "end": 28.96
+  },
+  {
+   "speaker": "Michael",
+   "text": "Of course, go ahead.",
+   "start": 29.39,
+   "end": 30.31
+  },
+  {
+   "speaker": "Sarah",
+   "text": "So, does the discount apply per order, or per customer across their whole account?",
+   "start": 30.84,
+   "end": 34.9
+  },
+  {
+   "speaker": "David",
+   "text": "Hmm, that's actually still a bit open — I don't think that's something we can commit to without confirming the exact rule with you first.",
+   "start": 35.44,
+   "end": 41.16
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Okay, got it, let's figure that out after this call then.",
+   "start": 42.16,
+   "end": 45.06
+  },
+  {
+   "speaker": "Michael",
+   "text": "Sounds good. Going back to the sprint — James, anything blocking besides the merge conflict?",
+   "start": 45.5,
+   "end": 50.55
+  },
+  {
+   "speaker": "James",
+   "text": "Actually, yeah — QA flagged a new issue on staging just this morning, something with the checkout totals looking off under specific discount combinations.",
+   "start": 51.05,
+   "end": 58.18
+  },
+  {
+   "speaker": "David",
+   "text": "Wait, really? I hadn't heard about that one yet.",
+   "start": 58.71,
+   "end": 61.91
+  },
+  {
+   "speaker": "James",
+   "text": "Yeah, it just came in — I mean, it might be related to the referral logic we're literally just talking about, honestly.",
+   "start": 62.85,
+   "end": 69.31
+  },
+  {
+   "speaker": "Michael",
+   "text": "Okay, that's — [pause] let me think about that for a second. So we've got an open requirement question AND a possibly related bug at the same time?",
+   "start": 69.58,
+   "end": 77.16
+  },
+  {
+   "speaker": "James",
+   "text": "Could be a coincidence, could not be — I don't want to guess without looking at it properly first.",
+   "start": 77.48,
+   "end": 82.41
+  },
+  {
+   "speaker": "David",
+   "text": "Agreed, let's not jump to conclusions — I can pair with James on it right after this.",
+   "start": 82.59,
+   "end": 87.46
+  },
+  {
+   "speaker": "Michael",
+   "text": "Alright. So, at the end of the day, the real question is — does this affect our production deploy timing?",
+   "start": 87.68,
+   "end": 91.87
+  },
+  {
+   "speaker": "James",
+   "text": "Honestly, I'd say hold off until we've confirmed it's not connected to the discount issue, just to be safe.",
+   "start": 92.18,
+   "end": 98.09
+  },
+  {
+   "speaker": "Sarah",
+   "text": "That makes sense to me — I'd rather wait a day than risk something going wrong with pricing.",
+   "start": 98.26,
+   "end": 103.44
+  },
+  {
+   "speaker": "Michael",
+   "text": "Agreed. So, tentatively, deploy's paused pending that investigation.",
+   "start": 103.67,
+   "end": 106.41
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Okay — actually, sorry, random question, but is this something that would affect a possible mobile app version down the line, if we ever built one?",
+   "start": 106.65,
+   "end": 114.64
+  },
+  {
+   "speaker": "David",
+   "text": "Oh — huh, honestly, I hadn't thought about that. It's not something we've looked into at all yet.",
+   "start": 114.85,
+   "end": 120.83
+  },
+  {
+   "speaker": "Michael",
+   "text": "Yeah, that'd be a bigger conversation for another time, but good to keep in mind for the roadmap.",
+   "start": 121.17,
+   "end": 127.35
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Fair enough, just curious. Okay, so let's agree on next steps before we wrap up?",
+   "start": 127.79,
+   "end": 131.54
+  },
+  {
+   "speaker": "Michael",
+   "text": "Sure — David and James pair on the bug and the merge conflict this afternoon, we confirm the referral rule with Sarah separately, and deploy stays on hold until we've got clarity.",
+   "start": 131.82,
+   "end": 140.26
+  },
+  {
+   "speaker": "David",
+   "text": "Works for me, I'll update everyone once we know more.",
+   "start": 140.75,
+   "end": 143.32
+  },
+  {
+   "speaker": "James",
+   "text": "Same here, should have something concrete by end of day.",
+   "start": 144.27,
+   "end": 147.12
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Perfect, thanks everyone — this was a lot, but I feel like we're actually in good shape.",
+   "start": 147.69,
+   "end": 152.37
+  },
+  {
+   "speaker": "Michael",
+   "text": "Agreed, thanks all — let's regroup tomorrow if anything changes before then.",
+   "start": 152.83,
+   "end": 157.0
+  }
+ ]
+}

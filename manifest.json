@@ -1,0 +1,14 @@
+{
+  "name": "Business English for IT Meetings",
+  "short_name": "English",
+  "description": "Luyện phản xạ tiếng Anh cho họp IT: nghe, nói theo, Reflex drill.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#181818",
+  "theme_color": "#181818",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

@@ -1,0 +1,140 @@
+{
+ "audio": "Lesson-08.mp3",
+ "duration": 98.16,
+ "confidence": "high",
+ "max_rate_deviation": 0.33,
+ "turns": [
+  {
+   "speaker": "Sarah",
+   "text": "Okay, so the client wants customers to save shipping addresses for future orders.",
+   "start": 0.17,
+   "end": 5.09
+  },
+  {
+   "speaker": "David",
+   "text": "Got it. Just to confirm, only logged-in customers can save an address, right?",
+   "start": 6.13,
+   "end": 11.1
+  },
+  {
+   "speaker": "Sarah",
+   "text": "That's right. Guest users can't save addresses.",
+   "start": 12.13,
+   "end": 15.76
+  },
+  {
+   "speaker": "David",
+   "text": "Okay. Can customers save more than one address?",
+   "start": 16.81,
+   "end": 20.09
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Yes, they can save multiple addresses.",
+   "start": 21.13,
+   "end": 23.55
+  },
+  {
+   "speaker": "David",
+   "text": "And can they choose one as their default address?",
+   "start": 24.58,
+   "end": 26.73
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Exactly. The default address should be selected automatically during checkout.",
+   "start": 27.75,
+   "end": 33.26
+  },
+  {
+   "speaker": "David",
+   "text": "So, if I understand correctly, the customer doesn't have to select an address every time.",
+   "start": 34.33,
+   "end": 38.83
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Right. The default one will be selected for them.",
+   "start": 39.87,
+   "end": 43.4
+  },
+  {
+   "speaker": "David",
+   "text": "Okay. Can they change the selected address before placing the order?",
+   "start": 44.43,
+   "end": 48.56
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Yes, they can choose another saved address.",
+   "start": 49.57,
+   "end": 52.22
+  },
+  {
+   "speaker": "Emily",
+   "text": "And what happens if they don't have any saved addresses?",
+   "start": 53.3,
+   "end": 55.98
+  },
+  {
+   "speaker": "Sarah",
+   "text": "They'll need to enter a new shipping address manually.",
+   "start": 56.43,
+   "end": 59.02
+  },
+  {
+   "speaker": "David",
+   "text": "Got it. Does that also apply to guest users?",
+   "start": 60.06,
+   "end": 63.19
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Yes. Guests have to enter their address manually.",
+   "start": 64.21,
+   "end": 67.69
+  },
+  {
+   "speaker": "David",
+   "text": "Okay, so logged-in customers can save multiple addresses, while guests can only enter an address during checkout.",
+   "start": 68.72,
+   "end": 74.78
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Exactly.",
+   "start": 75.79,
+   "end": 76.52
+  },
+  {
+   "speaker": "David",
+   "text": "And the default saved address is selected automatically, but customers can change it before placing the order.",
+   "start": 77.73,
+   "end": 83.13
+  },
+  {
+   "speaker": "Sarah",
+   "text": "That's correct.",
+   "start": 84.15,
+   "end": 85.03
+  },
+  {
+   "speaker": "Emily",
+   "text": "Great. That sounds clear from the QA side.",
+   "start": 86.09,
+   "end": 88.93
+  },
+  {
+   "speaker": "David",
+   "text": "Alright. I think we're on the same page now.",
+   "start": 89.48,
+   "end": 92.6
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Perfect. I'll update the ticket with these rules.",
+   "start": 93.61,
+   "end": 97.34
+  }
+ ]
+}

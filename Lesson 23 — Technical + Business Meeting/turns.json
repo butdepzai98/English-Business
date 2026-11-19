@@ -1,0 +1,128 @@
+{
+ "audio": "Lesson-23.mp3",
+ "duration": 141.34,
+ "confidence": "high",
+ "max_rate_deviation": 0.21,
+ "turns": [
+  {
+   "speaker": "Michael",
+   "text": "Okay, so — just to bring everyone up to speed, Emily found something concerning with the payment flow yesterday. Emily, can you walk us through it?",
+   "start": 0.0,
+   "end": 8.6
+  },
+  {
+   "speaker": "Emily",
+   "text": "Yeah, so basically, in a handful of test cases, the gateway returns a timeout error, but the order still gets created on our end, which means the customer might actually be charged.",
+   "start": 8.8,
+   "end": 17.5
+  },
+  {
+   "speaker": "James",
+   "text": "Right, and my best guess is that's a retry-logic issue — we might be resubmitting the payment request without properly checking if the first one already went through.",
+   "start": 17.67,
+   "end": 27.46
+  },
+  {
+   "speaker": "David",
+   "text": "I mean, that's possible, but honestly, I think it might be on the frontend side — if we're not handling the timeout response correctly, we could be triggering a second submission ourselves.",
+   "start": 28.45,
+   "end": 37.13
+  },
+  {
+   "speaker": "James",
+   "text": "Sure, that's fair, but — sorry, can I just — the backend logs show the duplicate request coming in almost immediately after the timeout, which points more toward a retry issue to me.",
+   "start": 38.1,
+   "end": 48.42
+  },
+  {
+   "speaker": "David",
+   "text": "Right, but that timing would also make sense if the frontend auto-retries on timeout without waiting for a proper response, which is honestly what I suspect is happening.",
+   "start": 49.41,
+   "end": 57.11
+  },
+  {
+   "speaker": "Michael",
+   "text": "Okay, okay — from a technical standpoint, I hear there are two theories, but from a business standpoint, the real question is: how risky is this for customers right now?",
+   "start": 58.06,
+   "end": 67.0
+  },
+  {
+   "speaker": "Emily",
+   "text": "Honestly, pretty risky — if this happens even occasionally in production, we're talking about actual double-charges, which is a financial and reputational risk.",
+   "start": 67.52,
+   "end": 76.25
+  },
+  {
+   "speaker": "Michael",
+   "text": "Right, that's what I was afraid of. So, where does that leave us in terms of the release next week?",
+   "start": 76.71,
+   "end": 81.32
+  },
+  {
+   "speaker": "James",
+   "text": "I don't think we can rule out either cause yet, so my instinct is we should hold the release until we've confirmed the root cause.",
+   "start": 81.81,
+   "end": 88.42
+  },
+  {
+   "speaker": "David",
+   "text": "I'd lean that way too — shipping this without knowing which side is actually broken feels risky, especially with real money involved.",
+   "start": 89.42,
+   "end": 95.68
+  },
+  {
+   "speaker": "Michael",
+   "text": "Let's not jump to conclusions before we know more, but — yeah, I agree, holding the release sounds like the safer call here.",
+   "start": 96.62,
+   "end": 103.06
+  },
+  {
+   "speaker": "Emily",
+   "text": "I can help narrow it down faster if David and James want to pair on reproducing it together this afternoon.",
+   "start": 103.68,
+   "end": 108.47
+  },
+  {
+   "speaker": "James",
+   "text": "That'd actually be really helpful, yeah — two sets of eyes on the logs might get us to a root cause quicker.",
+   "start": 108.95,
+   "end": 114.58
+  },
+  {
+   "speaker": "David",
+   "text": "Agreed, let's do that right after this call.",
+   "start": 115.6,
+   "end": 117.9
+  },
+  {
+   "speaker": "Michael",
+   "text": "Perfect. So, at the end of the day, we're holding the release, David and James are pairing on root cause this afternoon, and Emily's keeping an eye on any other related cases.",
+   "start": 118.85,
+   "end": 127.97
+  },
+  {
+   "speaker": "Emily",
+   "text": "Sounds good to me.",
+   "start": 128.5,
+   "end": 129.34
+  },
+  {
+   "speaker": "James",
+   "text": "Works for me too.",
+   "start": 129.81,
+   "end": 130.96
+  },
+  {
+   "speaker": "David",
+   "text": "Yep, I'll update everyone once we've narrowed it down, hopefully by end of day.",
+   "start": 131.99,
+   "end": 135.95
+  },
+  {
+   "speaker": "Michael",
+   "text": "Great, thanks everyone — this is exactly the kind of thing worth slowing down for.",
+   "start": 136.92,
+   "end": 141.02
+  }
+ ]
+}

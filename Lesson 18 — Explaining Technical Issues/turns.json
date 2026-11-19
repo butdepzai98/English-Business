@@ -1,0 +1,140 @@
+{
+ "audio": "Lesson-18.mp3",
+ "duration": 115.92,
+ "confidence": "high",
+ "max_rate_deviation": 0.26,
+ "turns": [
+  {
+   "speaker": "Michael",
+   "text": "Okay, thanks for jumping on this quickly. Emily, can you start by telling us what you found?",
+   "start": 0.0,
+   "end": 5.42
+  },
+  {
+   "speaker": "Emily",
+   "text": "Sure. I noticed that a few customers were seeing outdated prices on the site, even though we updated them in the admin panel yesterday.",
+   "start": 6.24,
+   "end": 13.01
+  },
+  {
+   "speaker": "Michael",
+   "text": "Okay, so — David, do we know why that's happening?",
+   "start": 13.95,
+   "end": 16.86
+  },
+  {
+   "speaker": "David",
+   "text": "Yeah, so basically, the issue was triggered by the cache not being invalidated after the price update went live.",
+   "start": 17.38,
+   "end": 22.73
+  },
+  {
+   "speaker": "Michael",
+   "text": "Can you explain that a bit more simply? What does that actually mean for us?",
+   "start": 23.66,
+   "end": 27.62
+  },
+  {
+   "speaker": "David",
+   "text": "Sure. So Varnish, our caching layer, is supposed to clear old pages whenever prices change. In this case, that step didn't happen for a specific set of category pages.",
+   "start": 28.47,
+   "end": 37.52
+  },
+  {
+   "speaker": "Emily",
+   "text": "So the pages just kept showing the old cached version instead of pulling the new price?",
+   "start": 38.5,
+   "end": 43.22
+  },
+  {
+   "speaker": "David",
+   "text": "Exactly. The server had the correct price, but the cached page being served to users still had the old one.",
+   "start": 44.23,
+   "end": 50.06
+  },
+  {
+   "speaker": "Michael",
+   "text": "Okay, and do we know how many customers were actually affected by this?",
+   "start": 51.0,
+   "end": 54.24
+  },
+  {
+   "speaker": "David",
+   "text": "As far as we know, it's limited to about a dozen category pages, but we're still confirming the exact number of affected sessions.",
+   "start": 54.76,
+   "end": 61.03
+  },
+  {
+   "speaker": "Michael",
+   "text": "Is that confirmed, or is that still an assumption at this point?",
+   "start": 61.96,
+   "end": 64.89
+  },
+  {
+   "speaker": "David",
+   "text": "That's still an assumption — we're working with the logs team to get a more accurate number.",
+   "start": 65.42,
+   "end": 69.05
+  },
+  {
+   "speaker": "Emily",
+   "text": "What's being done about it right now, though?",
+   "start": 69.98,
+   "end": 72.07
+  },
+  {
+   "speaker": "David",
+   "text": "As a temporary fix, we've manually flushed the cache for the affected pages, so the prices should be correct now.",
+   "start": 73.06,
+   "end": 78.22
+  },
+  {
+   "speaker": "Michael",
+   "text": "Good. And what about a permanent fix, so this doesn't happen again?",
+   "start": 79.15,
+   "end": 82.59
+  },
+  {
+   "speaker": "David",
+   "text": "The permanent fix will involve updating the cache-invalidation logic so it triggers automatically whenever a price change is saved.",
+   "start": 83.09,
+   "end": 88.94
+  },
+  {
+   "speaker": "Michael",
+   "text": "Okay, how long do you think that'll take to implement?",
+   "start": 89.88,
+   "end": 92.1
+  },
+  {
+   "speaker": "David",
+   "text": "I'd estimate a day or two, but I'll need to test it carefully before it goes to production.",
+   "start": 92.64,
+   "end": 96.47
+  },
+  {
+   "speaker": "Emily",
+   "text": "Should I keep monitoring the affected pages in the meantime?",
+   "start": 97.44,
+   "end": 100.24
+  },
+  {
+   "speaker": "David",
+   "text": "Yeah, that'd be really helpful — just to confirm the hotfix is holding until the real fix is deployed.",
+   "start": 101.21,
+   "end": 106.37
+  },
+  {
+   "speaker": "Michael",
+   "text": "Alright, sounds like we have a plan. David, can you send a short summary after this call?",
+   "start": 107.31,
+   "end": 111.63
+  },
+  {
+   "speaker": "David",
+   "text": "Sure, I'll write it up and share it with both of you by end of day.",
+   "start": 112.16,
+   "end": 115.09
+  }
+ ]
+}

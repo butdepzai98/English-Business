@@ -1,0 +1,164 @@
+{
+ "audio": "Lesson-12.mp3",
+ "duration": 115.13,
+ "confidence": "high",
+ "max_rate_deviation": 0.37,
+ "turns": [
+  {
+   "speaker": "James",
+   "text": "Okay, let's go over the API for the recommendation section before we start integration.",
+   "start": 0.15,
+   "end": 4.63
+  },
+  {
+   "speaker": "Emily",
+   "text": "Sure. David, what does the API return exactly?",
+   "start": 5.17,
+   "end": 8.44
+  },
+  {
+   "speaker": "David",
+   "text": "It'll return a list of recommended products with the product ID, name, and price.",
+   "start": 9.01,
+   "end": 13.28
+  },
+  {
+   "speaker": "Emily",
+   "text": "Okay. Are those fields always available?",
+   "start": 14.33,
+   "end": 16.48
+  },
+  {
+   "speaker": "David",
+   "text": "Yes, those three are required. The image URL is optional.",
+   "start": 17.03,
+   "end": 21.2
+  },
+  {
+   "speaker": "Emily",
+   "text": "Got it. Can the image URL be null?",
+   "start": 22.28,
+   "end": 24.37
+  },
+  {
+   "speaker": "David",
+   "text": "Yeah, it can. If there's no image, the field will be null.",
+   "start": 24.91,
+   "end": 28.8
+  },
+  {
+   "speaker": "Emily",
+   "text": "Okay. What happens if there are no recommendations?",
+   "start": 29.88,
+   "end": 32.35
+  },
+  {
+   "speaker": "David",
+   "text": "The API will return an empty array.",
+   "start": 32.92,
+   "end": 34.72
+  },
+  {
+   "speaker": "Emily",
+   "text": "Perfect. And what happens if the API request fails?",
+   "start": 35.82,
+   "end": 39.18
+  },
+  {
+   "speaker": "David",
+   "text": "We'll return a standard error response with the status code and an error message.",
+   "start": 39.75,
+   "end": 43.21
+  },
+  {
+   "speaker": "Emily",
+   "text": "Do I need to handle the error code on the frontend?",
+   "start": 44.27,
+   "end": 46.21
+  },
+  {
+   "speaker": "David",
+   "text": "Yeah, the frontend should display the fallback state when the request fails.",
+   "start": 46.77,
+   "end": 50.26
+  },
+  {
+   "speaker": "Emily",
+   "text": "Okay. What about product availability? Should the frontend filter out unavailable products?",
+   "start": 51.33,
+   "end": 56.15
+  },
+  {
+   "speaker": "David",
+   "text": "I'd rather handle that on the backend. The API should only return products that are currently available.",
+   "start": 56.73,
+   "end": 62.24
+  },
+  {
+   "speaker": "Emily",
+   "text": "That makes sense. I just wanted to make sure we weren't duplicating the logic.",
+   "start": 63.36,
+   "end": 67.25
+  },
+  {
+   "speaker": "James",
+   "text": "Right. Let's keep the business logic on the backend and the display logic on the frontend.",
+   "start": 67.73,
+   "end": 72.38
+  },
+  {
+   "speaker": "Emily",
+   "text": "Sounds good. One more thing: do I need to send any parameters with the request?",
+   "start": 72.95,
+   "end": 77.25
+  },
+  {
+   "speaker": "David",
+   "text": "Yeah, there's an optional customer ID. If it's not provided, the API will return the default recommendations.",
+   "start": 77.82,
+   "end": 84.64
+  },
+  {
+   "speaker": "Emily",
+   "text": "Okay. Is the response structure going to stay the same for both cases?",
+   "start": 85.68,
+   "end": 90.16
+  },
+  {
+   "speaker": "David",
+   "text": "Yes. The structure stays the same. Only the items will be different.",
+   "start": 91.1,
+   "end": 94.86
+  },
+  {
+   "speaker": "James",
+   "text": "Great. That should make the integration pretty straightforward.",
+   "start": 95.83,
+   "end": 99.63
+  },
+  {
+   "speaker": "Emily",
+   "text": "Perfect. I'll start the frontend integration once the endpoint is available on staging.",
+   "start": 100.15,
+   "end": 103.88
+  },
+  {
+   "speaker": "David",
+   "text": "I'll push the API changes to staging this afternoon.",
+   "start": 104.43,
+   "end": 107.1
+  },
+  {
+   "speaker": "James",
+   "text": "Good. Let's make sure we test both the normal response and the empty result.",
+   "start": 108.1,
+   "end": 112.01
+  },
+  {
+   "speaker": "Emily",
+   "text": "Yep, I'll cover those cases on the frontend.",
+   "start": 112.57,
+   "end": 114.79
+  }
+ ]
+}

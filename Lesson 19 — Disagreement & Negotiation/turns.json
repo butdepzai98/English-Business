@@ -1,0 +1,134 @@
+{
+ "audio": "Lesson-19.mp3",
+ "duration": 118.82,
+ "confidence": "high",
+ "max_rate_deviation": 0.21,
+ "turns": [
+  {
+   "speaker": "Sarah",
+   "text": "So, for the stock-checking feature, I really want it to pull live data every single time someone views a product page.",
+   "start": 0.0,
+   "end": 5.85
+  },
+  {
+   "speaker": "David",
+   "text": "I hear you, but I'm not sure that's the best approach, especially during high-traffic periods like sales.",
+   "start": 6.33,
+   "end": 11.98
+  },
+  {
+   "speaker": "Sarah",
+   "text": "What do you mean? Isn't accuracy the whole point of this feature?",
+   "start": 12.91,
+   "end": 16.59
+  },
+  {
+   "speaker": "David",
+   "text": "It is, but if we call the inventory system synchronously on every page view, it could add real latency, maybe a full second or more.",
+   "start": 16.98,
+   "end": 23.6
+  },
+  {
+   "speaker": "Michael",
+   "text": "Sarah, the concern David's raising is basically about page speed versus data freshness.",
+   "start": 24.56,
+   "end": 29.15
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Okay, I see where you're coming from, but a one-second delay doesn't sound too bad, does it?",
+   "start": 30.1,
+   "end": 34.89
+  },
+  {
+   "speaker": "David",
+   "text": "On a normal day, maybe not, but during peak traffic, that delay could multiply and actually slow the whole site down.",
+   "start": 35.4,
+   "end": 42.01
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Hmm, I hadn't thought about it that way. [pause] So what would you suggest instead?",
+   "start": 42.92,
+   "end": 46.18
+  },
+  {
+   "speaker": "David",
+   "text": "One thing we should consider is caching the stock data for a short window, like thirty seconds, instead of calling it live every time.",
+   "start": 46.66,
+   "end": 53.88
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Would that mean customers could see slightly outdated numbers?",
+   "start": 54.79,
+   "end": 57.35
+  },
+  {
+   "speaker": "David",
+   "text": "Technically, yes, but only for a few seconds, and honestly, most customers wouldn't even notice that small a delay.",
+   "start": 57.84,
+   "end": 64.4
+  },
+  {
+   "speaker": "Sarah",
+   "text": "That could work, but I'd still want it to be as close to real-time as possible for high-demand items.",
+   "start": 65.32,
+   "end": 69.76
+  },
+  {
+   "speaker": "Michael",
+   "text": "What if we did a hybrid? Cache most products, but call live data specifically for items that are almost out of stock.",
+   "start": 70.32,
+   "end": 76.76
+  },
+  {
+   "speaker": "David",
+   "text": "Actually, that's a solid idea — we'd get better accuracy exactly where it matters most, without the full performance hit.",
+   "start": 77.71,
+   "end": 84.14
+  },
+  {
+   "speaker": "Sarah",
+   "text": "I like that. So low-stock items get real-time checks, and everything else uses the short cache?",
+   "start": 85.05,
+   "end": 89.98
+  },
+  {
+   "speaker": "David",
+   "text": "Exactly, and if the cache window ever causes issues, we could always shorten it further later.",
+   "start": 90.45,
+   "end": 95.69
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Okay, that sounds like a reasonable compromise to me.",
+   "start": 96.57,
+   "end": 99.05
+  },
+  {
+   "speaker": "Michael",
+   "text": "Great, so David, can you put together a quick technical outline for that hybrid approach?",
+   "start": 99.54,
+   "end": 103.61
+  },
+  {
+   "speaker": "David",
+   "text": "Sure, I'll have something ready by tomorrow so we can review it together.",
+   "start": 104.57,
+   "end": 108.49
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Perfect. Thanks for walking me through the trade-offs — that actually makes a lot more sense now.",
+   "start": 109.39,
+   "end": 114.97
+  },
+  {
+   "speaker": "David",
+   "text": "No problem, happy to explain anytime something like this comes up.",
+   "start": 115.32,
+   "end": 118.04
+  }
+ ]
+}

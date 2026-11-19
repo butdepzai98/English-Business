@@ -1,0 +1,98 @@
+{
+ "audio": "Lesson-05.mp3",
+ "duration": 63.77,
+ "confidence": "high",
+ "max_rate_deviation": 0.33,
+ "turns": [
+  {
+   "speaker": "Sarah",
+   "text": "Hey David, I want to go over one change for the product page.",
+   "start": 0.18,
+   "end": 4.03
+  },
+  {
+   "speaker": "David",
+   "text": "Sure, what's the change?",
+   "start": 5.13,
+   "end": 6.5
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Right now, out-of-stock products disappear from the page.",
+   "start": 7.54,
+   "end": 10.95
+  },
+  {
+   "speaker": "David",
+   "text": "Okay.",
+   "start": 12.03,
+   "end": 12.46
+  },
+  {
+   "speaker": "Sarah",
+   "text": "The client wants to keep them visible, even when they're out of stock.",
+   "start": 13.86,
+   "end": 17.41
+  },
+  {
+   "speaker": "David",
+   "text": "Got it. Should customers still be able to add them to the cart?",
+   "start": 18.49,
+   "end": 22.21
+  },
+  {
+   "speaker": "Sarah",
+   "text": "No, the Add to Cart button should be disabled.",
+   "start": 23.24,
+   "end": 26.11
+  },
+  {
+   "speaker": "David",
+   "text": "Okay. So we show the product, but they can't purchase it.",
+   "start": 27.17,
+   "end": 30.97
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Exactly. We also want to show an “Out of Stock” message.",
+   "start": 32.0,
+   "end": 36.22
+  },
+  {
+   "speaker": "David",
+   "text": "Makes sense. Should users be able to sign up for a notification?",
+   "start": 37.28,
+   "end": 41.39
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Yeah, they should be able to get notified when the product is available again.",
+   "start": 42.44,
+   "end": 46.68
+  },
+  {
+   "speaker": "David",
+   "text": "Okay, so the product stays visible, Add to Cart is disabled, and users can sign up for a notification.",
+   "start": 47.72,
+   "end": 53.52
+  },
+  {
+   "speaker": "Sarah",
+   "text": "That's right.",
+   "start": 54.56,
+   "end": 55.29
+  },
+  {
+   "speaker": "David",
+   "text": "Alright, I understand the requirement.",
+   "start": 56.49,
+   "end": 58.59
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Great. I'll add the details to the ticket.",
+   "start": 59.64,
+   "end": 62.9
+  }
+ ]
+}

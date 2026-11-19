@@ -1,0 +1,140 @@
+{
+ "audio": "Lesson-10.mp3",
+ "duration": 94.94,
+ "confidence": "high",
+ "max_rate_deviation": 0.57,
+ "turns": [
+  {
+   "speaker": "James",
+   "text": "Hey David, I went through your PR for the checkout validation.",
+   "start": 0.23,
+   "end": 3.41
+  },
+  {
+   "speaker": "David",
+   "text": "Sure. Did you find anything that needs changing?",
+   "start": 4.42,
+   "end": 6.88
+  },
+  {
+   "speaker": "James",
+   "text": "Yeah, I have a couple of questions. Why did you go with this approach for the validation?",
+   "start": 7.42,
+   "end": 12.39
+  },
+  {
+   "speaker": "David",
+   "text": "I kept most of the logic in the checkout controller because it's only being used by checkout right now.",
+   "start": 13.38,
+   "end": 18.36
+  },
+  {
+   "speaker": "James",
+   "text": "Okay, that makes sense. But could we move the validation into a service?",
+   "start": 18.89,
+   "end": 23.54
+  },
+  {
+   "speaker": "David",
+   "text": "We could. Are you thinking we might reuse it somewhere else?",
+   "start": 24.54,
+   "end": 28.28
+  },
+  {
+   "speaker": "James",
+   "text": "Yeah. We may need the same validation from the admin side later.",
+   "start": 29.17,
+   "end": 32.07
+  },
+  {
+   "speaker": "David",
+   "text": "Got it. In that case, extracting it would make sense.",
+   "start": 33.03,
+   "end": 36.03
+  },
+  {
+   "speaker": "James",
+   "text": "Exactly. One other thing I noticed is the error handling here.",
+   "start": 36.61,
+   "end": 40.59
+  },
+  {
+   "speaker": "David",
+   "text": "What about it?",
+   "start": 41.58,
+   "end": 42.09
+  },
+  {
+   "speaker": "James",
+   "text": "What happens if the validation API returns an error?",
+   "start": 43.53,
+   "end": 46.04
+  },
+  {
+   "speaker": "David",
+   "text": "Right now, we return a generic error message to the frontend.",
+   "start": 47.02,
+   "end": 50.42
+  },
+  {
+   "speaker": "James",
+   "text": "Okay. Could we return a more specific response?",
+   "start": 50.98,
+   "end": 54.4
+  },
+  {
+   "speaker": "David",
+   "text": "I think so. We'd need to update the frontend handling as well.",
+   "start": 55.38,
+   "end": 58.57
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Would that affect the current ticket scope?",
+   "start": 59.07,
+   "end": 61.57
+  },
+  {
+   "speaker": "David",
+   "text": "A little. The service extraction is small, but changing the API response would need some frontend work.",
+   "start": 61.94,
+   "end": 64.95
+  },
+  {
+   "speaker": "James",
+   "text": "We don't necessarily need to change the response in this PR.",
+   "start": 65.53,
+   "end": 68.4
+  },
+  {
+   "speaker": "David",
+   "text": "Yeah, that's probably better. We can extract the validation logic now and keep the error response as it is.",
+   "start": 69.34,
+   "end": 76.39
+  },
+  {
+   "speaker": "James",
+   "text": "I agree. That keeps the PR focused.",
+   "start": 77.34,
+   "end": 78.9
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Sounds good. So David will extract the validation logic, and we'll keep the current error response for now.",
+   "start": 79.96,
+   "end": 86.03
+  },
+  {
+   "speaker": "David",
+   "text": "Yep. I'll update the PR and add a couple of tests.",
+   "start": 87.01,
+   "end": 90.05
+  },
+  {
+   "speaker": "James",
+   "text": "Perfect. Let me know when it's ready for another review.",
+   "start": 90.63,
+   "end": 94.09
+  }
+ ]
+}

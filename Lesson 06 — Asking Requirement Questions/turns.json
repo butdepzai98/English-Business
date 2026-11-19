@@ -1,0 +1,110 @@
+{
+ "audio": "Lesson-06.mp3",
+ "duration": 90.53,
+ "confidence": "high",
+ "max_rate_deviation": 0.38,
+ "turns": [
+  {
+   "speaker": "Sarah",
+   "text": "Hey David, I want to go over the discount code requirement before we start development.",
+   "start": 0.18,
+   "end": 5.37
+  },
+  {
+   "speaker": "David",
+   "text": "Sure. Do we already know which customers should be able to use the code?",
+   "start": 6.42,
+   "end": 10.57
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Yes. Logged-in customers can use it, but guest users shouldn't have access.",
+   "start": 11.62,
+   "end": 16.94
+  },
+  {
+   "speaker": "David",
+   "text": "Okay. Has the client decided what happens if a guest tries to apply the code?",
+   "start": 17.98,
+   "end": 22.73
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Yeah, they should see a message asking them to log in first.",
+   "start": 23.77,
+   "end": 27.28
+  },
+  {
+   "speaker": "David",
+   "text": "Got it. Do we need to restrict the code to certain customer groups?",
+   "start": 28.33,
+   "end": 32.32
+  },
+  {
+   "speaker": "Sarah",
+   "text": "For now, no. Any logged-in customer should be able to use it.",
+   "start": 33.34,
+   "end": 38.25
+  },
+  {
+   "speaker": "David",
+   "text": "Okay. What should happen if the customer has already used another discount?",
+   "start": 39.29,
+   "end": 43.77
+  },
+  {
+   "speaker": "Sarah",
+   "text": "They shouldn't be able to combine the discounts.",
+   "start": 44.82,
+   "end": 47.22
+  },
+  {
+   "speaker": "David",
+   "text": "Makes sense. Should the system show an error message in that case?",
+   "start": 48.3,
+   "end": 52.22
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Yes, and it should explain that only one discount can be used.",
+   "start": 53.27,
+   "end": 57.13
+  },
+  {
+   "speaker": "David",
+   "text": "Okay. Have we confirmed whether the code needs to be validated before checkout?",
+   "start": 58.21,
+   "end": 62.87
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Yes, the client wants it validated as soon as the customer applies it.",
+   "start": 63.9,
+   "end": 68.19
+  },
+  {
+   "speaker": "David",
+   "text": "Got it. And if the code is expired, should we remove it automatically?",
+   "start": 69.28,
+   "end": 75.05
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Yes. The discount should be removed and the customer should see a message.",
+   "start": 75.96,
+   "end": 79.53
+  },
+  {
+   "speaker": "David",
+   "text": "Alright. I think that covers the main cases.",
+   "start": 80.58,
+   "end": 83.72
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Great. I'll add these rules to the ticket so we're on the same page.",
+   "start": 84.79,
+   "end": 89.65
+  }
+ ]
+}

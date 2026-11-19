@@ -1,0 +1,194 @@
+{
+ "audio": "Lesson-14.mp3",
+ "duration": 136.32,
+ "confidence": "high",
+ "max_rate_deviation": 0.29,
+ "turns": [
+  {
+   "speaker": "James",
+   "text": "Alright, before we start, are we still good to deploy the checkout release tonight?",
+   "start": 0.15,
+   "end": 4.06
+  },
+  {
+   "speaker": "Sarah",
+   "text": "As far as QA is concerned, yes. Emily signed off on the latest staging build this morning.",
+   "start": 4.61,
+   "end": 10.06
+  },
+  {
+   "speaker": "David",
+   "text": "Okay. From the backend side, the code is ready. There's one configuration change that I want to double-check, though.",
+   "start": 10.58,
+   "end": 17.88
+  },
+  {
+   "speaker": "James",
+   "text": "Which one?",
+   "start": 18.81,
+   "end": 19.22
+  },
+  {
+   "speaker": "David",
+   "text": "The new checkout timeout value. It's currently set differently in staging and production.",
+   "start": 20.77,
+   "end": 25.71
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Is that expected, or do we need to change the production value?",
+   "start": 26.76,
+   "end": 30.04
+  },
+  {
+   "speaker": "David",
+   "text": "It's intentional, but I want to make sure the production value is approved before we deploy.",
+   "start": 30.58,
+   "end": 34.96
+  },
+  {
+   "speaker": "James",
+   "text": "Good catch. Can you confirm the expected value before the release window?",
+   "start": 35.9,
+   "end": 39.5
+  },
+  {
+   "speaker": "David",
+   "text": "Yeah, I'll check the deployment config and confirm it with the client team.",
+   "start": 40.01,
+   "end": 43.39
+  },
+  {
+   "speaker": "Sarah",
+   "text": "How long will that take?",
+   "start": 44.45,
+   "end": 45.44
+  },
+  {
+   "speaker": "David",
+   "text": "Probably ten minutes. Everything else should be ready.",
+   "start": 46.32,
+   "end": 49.61
+  },
+  {
+   "speaker": "James",
+   "text": "Okay. What's the deployment plan after that?",
+   "start": 50.52,
+   "end": 52.68
+  },
+  {
+   "speaker": "David",
+   "text": "I'll deploy the code first, then run the database migration and clear the application cache.",
+   "start": 53.23,
+   "end": 57.84
+  },
+  {
+   "speaker": "James",
+   "text": "Do we need to reindex anything?",
+   "start": 58.8,
+   "end": 60.13
+  },
+  {
+   "speaker": "David",
+   "text": "No new indexer changes in this release, so we shouldn't need a full reindex.",
+   "start": 60.75,
+   "end": 64.73
+  },
+  {
+   "speaker": "Sarah",
+   "text": "And who's doing the smoke test?",
+   "start": 65.76,
+   "end": 67.12
+  },
+  {
+   "speaker": "James",
+   "text": "David can verify the backend health, and I'll run through the main checkout flow.",
+   "start": 67.58,
+   "end": 71.4
+  },
+  {
+   "speaker": "David",
+   "text": "Sounds good. We should also check that the payment API is responding normally.",
+   "start": 71.94,
+   "end": 76.73
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Right. Anything else we should watch out for?",
+   "start": 77.71,
+   "end": 79.98
+  },
+  {
+   "speaker": "David",
+   "text": "The first few minutes after deployment are the main risk. I'd like to monitor checkout errors and payment failures.",
+   "start": 80.5,
+   "end": 86.43
+  },
+  {
+   "speaker": "James",
+   "text": "Agreed. What's the rollback plan if we see a spike?",
+   "start": 87.38,
+   "end": 89.96
+  },
+  {
+   "speaker": "David",
+   "text": "If the error rate increases significantly, I'll revert the deployment to the previous version.",
+   "start": 90.51,
+   "end": 94.84
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Would we need to roll back the database migration too?",
+   "start": 95.88,
+   "end": 98.14
+  },
+  {
+   "speaker": "David",
+   "text": "Not for this change. The migration is backward compatible, so we can revert the code without reverting the database.",
+   "start": 98.64,
+   "end": 105.2
+  },
+  {
+   "speaker": "James",
+   "text": "Good. That makes the rollback safer.",
+   "start": 106.18,
+   "end": 108.11
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Okay. Let's say the deployment takes twenty minutes. Are we still on track for the release window?",
+   "start": 108.67,
+   "end": 113.5
+  },
+  {
+   "speaker": "David",
+   "text": "Yeah, assuming the config check is fine, we should be done around eight-thirty.",
+   "start": 114.02,
+   "end": 117.72
+  },
+  {
+   "speaker": "James",
+   "text": "Perfect. Just let us know if anything changes before you start.",
+   "start": 118.66,
+   "end": 121.86
+  },
+  {
+   "speaker": "David",
+   "text": "Will do. I'll confirm the config first and post an update in the release channel.",
+   "start": 122.41,
+   "end": 127.01
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Great. Once the smoke test passes, we'll consider the release complete.",
+   "start": 128.1,
+   "end": 132.6
+  },
+  {
+   "speaker": "James",
+   "text": "Sounds good. Let's keep an eye on it for the first fifteen minutes.",
+   "start": 133.1,
+   "end": 135.99
+  }
+ ]
+}

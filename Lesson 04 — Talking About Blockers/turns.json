@@ -1,0 +1,92 @@
+{
+ "audio": "Lesson-04.mp3",
+ "duration": 61.8,
+ "confidence": "high",
+ "max_rate_deviation": 0.39,
+ "turns": [
+  {
+   "speaker": "Sarah",
+   "text": "Morning, David. How's the payment API integration going?",
+   "start": 0.18,
+   "end": 5.12
+  },
+  {
+   "speaker": "David",
+   "text": "Pretty good. The implementation is almost done.",
+   "start": 6.18,
+   "end": 9.61
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Nice. Anything blocking you?",
+   "start": 10.64,
+   "end": 13.24
+  },
+  {
+   "speaker": "David",
+   "text": "Yeah, I'm waiting for the API credentials from the client.",
+   "start": 14.29,
+   "end": 17.4
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Okay. Does that block the development?",
+   "start": 18.44,
+   "end": 21.46
+  },
+  {
+   "speaker": "David",
+   "text": "Not really. I can finish the code, but I can't test the API yet.",
+   "start": 22.56,
+   "end": 27.23
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Got it. When do you expect to get the credentials?",
+   "start": 28.29,
+   "end": 31.84
+  },
+  {
+   "speaker": "David",
+   "text": "I'm not sure. I asked the client yesterday, but I haven't heard back yet.",
+   "start": 32.94,
+   "end": 39.13
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Okay. Is there anything else you can work on?",
+   "start": 40.05,
+   "end": 42.2
+  },
+  {
+   "speaker": "David",
+   "text": "Yeah, I can finish the error handling while we wait.",
+   "start": 43.26,
+   "end": 46.01
+  },
+  {
+   "speaker": "Sarah",
+   "text": "Sounds good. I'll follow up with the client.",
+   "start": 47.05,
+   "end": 50.49
+  },
+  {
+   "speaker": "David",
+   "text": "Thanks. That would help.",
+   "start": 51.59,
+   "end": 53.78
+  },
+  {
+   "speaker": "Sarah",
+   "text": "No problem. Keep me posted if anything changes.",
+   "start": 54.78,
+   "end": 58.8
+  },
+  {
+   "speaker": "David",
+   "text": "Sure, will do.",
+   "start": 59.9,
+   "end": 60.95
+  }
+ ]
+}

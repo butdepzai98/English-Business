@@ -224,8 +224,38 @@ function playTurn(turn, rate, runId) {
   return speak(turn.text, rate, runId);
 }
 
+// Spoken length of a turn. The timings in turns.json are sometimes too short (e.g. 0.4s for a
+// 7-word sentence), so never trust them below a speaking-rate estimate of ~2.7 words/second.
 function turnSeconds(turn) {
-  return turn.end != null ? turn.end - turn.start : Math.max(1.5, turn.text.length / 15);
+  const words = turn.text.trim().split(/\s+/).filter(Boolean).length;
+  const estimate = Math.max(1, words / 2.7);
+  const timed = turn.end != null ? turn.end - turn.start : 0;
+  return Math.max(timed, estimate);
+}
+
+// Shadowing: time the learner gets to repeat a sentence. Scales with the sentence length and the
+// chosen pace, with a floor so very short sentences are not rushed.
+const SHADOW_MIN_MS = 2500;
+const SHADOW_PACES = { fast: 1.5, normal: 2, slow: 3 };
+
+function shadowGapMs(turn, pace) {
+  const mult = SHADOW_PACES[pace] || SHADOW_PACES.normal;
+  return Math.max(SHADOW_MIN_MS, turnSeconds(turn) / train.rate * 1000 * mult + 1000);
+}
+
+// Resolves true when the wait ends (timer, or the learner pressing Next / Space), "replay" when
+// they ask to hear the sentence again, and false when the run was stopped. ms = null waits for Next.
+function shadowWait(ms, id) {
+  return new Promise(resolve => {
+    let timer = null;
+    const done = value => {
+      clearTimeout(timer);
+      if (train.waitNext === done) train.waitNext = null;
+      resolve(train.runId === id ? value : false);
+    };
+    train.waitNext = done;
+    if (ms != null) timer = setTimeout(() => done(true), ms);
+  });
 }
 
 function stopTraining() {
@@ -356,7 +386,17 @@ function trainHtml({ lesson, media, turns, speakers, defaultRole, listens, hardK
         <label>Lặp
           <select id="shadowReps"><option>1</option><option selected>2</option><option>3</option></select>
         </label>
+        <label>Thời gian nói
+          <select id="shadowPace">
+            <option value="fast">Nhanh (1,5× độ dài câu)</option>
+            <option value="normal" selected>Vừa (2×)</option>
+            <option value="slow">Chậm (3×)</option>
+            <option value="manual">Tự bấm Tiếp</option>
+          </select>
+        </label>
         <button class="btn btn-primary" data-act="shadow-start">▶ Bắt đầu</button>
+        <button class="btn" data-act="shadow-next">Tiếp ▶</button>
+        <button class="btn" data-act="shadow-replay">↺ Nghe lại câu</button>
         <button class="btn" data-act="shadow-stop">■ Dừng</button>
       </div>
       <div id="shadowStatus" class="status-line">Sẵn sàng.</div>
@@ -431,7 +471,9 @@ function handleTrainClick(event) {
       target.classList.toggle("on");
       break;
     }
-    case "shadow-start": runShadow(); break;
+    case "shadow-start": target.blur(); runShadow(); break;
+    case "shadow-next": if (train.mode === "shadow" && train.waitNext) train.waitNext(true); break;
+    case "shadow-replay": if (train.mode === "shadow" && train.waitNext) train.waitNext("replay"); break;
     case "shadow-stop": stopTraining(); setShadowStatus("Đã dừng."); break;
     case "drill-start": runReflex(); break;
     case "drill-stop": stopTraining(); renderStage(`<div class="stage-line">Đã dừng.</div>`); break;
@@ -467,17 +509,29 @@ async function runShadow() {
   keepAwake(true);
   const reps = Number(document.getElementById("shadowReps").value);
   const together = document.getElementById("shadowStyle").value === "together";
+  const pace = document.getElementById("shadowPace").value;   // fast | normal | slow | manual
 
   for (let i = 0; i < train.turns.length; i += 1) {
     const turn = train.turns[i];
+    const where = `Câu ${i + 1}/${train.turns.length}`;
     for (let rep = 1; rep <= reps; rep += 1) {
-      setShadowStatus(`Câu ${i + 1}/${train.turns.length} · lần ${rep}/${reps} — 🎧 nghe`);
-      if (!await playTurn(turn, train.rate, id)) return;
-      if (together) {
-        if (!await sleep(250, id)) return;
-      } else {
-        setShadowStatus(`Câu ${i + 1}/${train.turns.length} · lần ${rep}/${reps} — 🗣 nói lại ngay!`);
-        if (!await sleep(turnSeconds(turn) / train.rate * 1000 + 500, id)) return;
+      let again = true;
+      while (again) {
+        again = false;
+        setShadowStatus(`${where} · lần ${rep}/${reps} — 🎧 nghe`);
+        if (!await playTurn(turn, train.rate, id)) return;
+        if (together) {
+          if (!await sleep(250, id)) return;
+          continue;
+        }
+        const manual = pace === "manual";
+        const ms = manual ? null : shadowGapMs(turn, pace);
+        setShadowStatus(manual
+          ? `${where} · lần ${rep}/${reps} — 🗣 nói lại, xong thì bấm Tiếp (Space)`
+          : `${where} · lần ${rep}/${reps} — 🗣 nói lại (~${Math.round(ms / 1000)}s) · Space = qua câu sau`);
+        const result = await shadowWait(ms, id);
+        if (result === false) return;
+        again = result === "replay";
       }
     }
   }

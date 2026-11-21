@@ -613,6 +613,8 @@ audio { width: 100%; margin: 10px 0 24px; }
 }
 
 .btn:hover { background: #3a3a3a; }
+.btn:disabled { opacity: .4; cursor: not-allowed; }
+.btn:disabled:hover { background: #2b2b2b; }
 .btn-primary { background: #2b6cc4; border-color: #3b7fd8; color: #fff; }
 .btn-primary:hover { background: #3479d8; }
 .btn-lg { padding: 14px 22px; font-size: 17px; }
@@ -692,6 +694,41 @@ audio { width: 100%; margin: 10px 0 24px; }
 
 .control-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 10px; }
 .control-row label { display: flex; align-items: center; gap: 8px; color: #bdbdbd; font-size: 15px; }
+
+/* Shadowing controls: settings on top, actions below, live status last. */
+.shadow-settings {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1.4fr;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.field > span { color: #9a9a9a; font-size: 13px; }
+.field select { width: 100%; }
+
+.shadow-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 14px; }
+.shadow-start { min-width: 150px; }
+.shadow-live { display: flex; gap: 8px; }
+
+.shadow-status {
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid #262626;
+  background: #1a1a1a;
+}
+
+.shadow-status.is-live { border-color: #2b6cc4; color: #e6e6e6; }
+
+kbd {
+  padding: 1px 6px;
+  border: 1px solid #3a3a3a;
+  border-radius: 5px;
+  background: #1f1f1f;
+  color: #cfcfcf;
+  font: inherit;
+  font-size: 12.5px;
+}
 
 select {
   border: 1px solid #3a3a3a;
@@ -890,6 +927,12 @@ select {
   .control-row label { width: 100%; justify-content: space-between; }
   .control-row label.check { justify-content: flex-start; }
   .control-row .btn { flex: 1 1 calc(50% - 5px); }
+  .shadow-settings { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .field-wide { grid-column: 1 / -1; }
+  .shadow-actions { flex-direction: column; align-items: stretch; gap: 10px; }
+  .shadow-start { width: 100%; min-height: 50px; }
+  .shadow-live { display: grid; grid-template-columns: repeat(3, 1fr); }
+  .shadow-live .btn { padding: 11px 6px; white-space: nowrap; }
   select { min-height: 44px; font-size: 16px; }
   .chip { min-height: 40px; padding: 8px 16px; }
   .listen-count { margin-left: 0; width: 100%; }

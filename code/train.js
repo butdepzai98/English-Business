@@ -262,6 +262,7 @@ function stopTraining() {
   train.runId += 1;
   train.mode = "idle";
   train.busy = false;
+  setShadowLive(false);
   if (train.audio) train.audio.pause();
   if (homeAudio) homeAudio.pause();
   if ("speechSynthesis" in window) speechSynthesis.cancel();
@@ -376,30 +377,35 @@ function trainHtml({ lesson, media, turns, speakers, defaultRole, listens, hardK
     <section class="step-card">
       <div class="step-head"><span class="step-num">3</span><div><h3>Nói theo (shadowing)</h3>
         <p>Nghe từng câu rồi nói lại ngay, không nhìn chữ. Chọn tốc độ ở bước 1.</p></div></div>
-      <div class="control-row">
-        <label>Kiểu
+      <div class="shadow-settings">
+        <label class="field field-wide"><span>Kiểu</span>
           <select id="shadowStyle">
             <option value="echo">Nghe xong rồi nói lại</option>
             <option value="together">Nói đồng thời với audio</option>
           </select>
         </label>
-        <label>Lặp
+        <label class="field"><span>Số lần lặp</span>
           <select id="shadowReps"><option>1</option><option selected>2</option><option>3</option></select>
         </label>
-        <label>Thời gian nói
+        <label class="field"><span>Thời gian nói</span>
           <select id="shadowPace">
-            <option value="fast">Nhanh (1,5× độ dài câu)</option>
-            <option value="normal" selected>Vừa (2×)</option>
+            <option value="fast" selected>Nhanh (1,5×)</option>
+            <option value="normal">Vừa (2×)</option>
             <option value="slow">Chậm (3×)</option>
             <option value="manual">Tự bấm Tiếp</option>
           </select>
         </label>
-        <button class="btn btn-primary" data-act="shadow-start">▶ Bắt đầu</button>
-        <button class="btn" data-act="shadow-next">Tiếp ▶</button>
-        <button class="btn" data-act="shadow-replay">↺ Nghe lại câu</button>
-        <button class="btn" data-act="shadow-stop">■ Dừng</button>
       </div>
-      <div id="shadowStatus" class="status-line">Sẵn sàng.</div>
+      <div class="shadow-actions">
+        <button class="btn btn-primary shadow-start" data-act="shadow-start">▶ Bắt đầu</button>
+        <div class="shadow-live">
+          <button class="btn" data-act="shadow-replay" disabled>↺ Nghe lại</button>
+          <button class="btn" data-act="shadow-next" disabled>Tiếp ▶</button>
+          <button class="btn" data-act="shadow-stop" disabled>■ Dừng</button>
+        </div>
+      </div>
+      <div id="shadowStatus" class="status-line shadow-status">Sẵn sàng.</div>
+      <p class="step-note">Thời gian nói = độ dài câu × hệ số đã chọn. Phím <kbd>Space</kbd> qua câu sau, <kbd>Esc</kbd> dừng.</p>
     </section>
 
     <section class="step-card step-reflex">
@@ -502,10 +508,17 @@ function setShadowStatus(text) {
   if (el) el.textContent = text;
 }
 
+// Replay / Next / Stop only make sense while a shadowing run is going.
+function setShadowLive(on) {
+  document.querySelectorAll(".shadow-live .btn").forEach(btn => { btn.disabled = !on; });
+  document.getElementById("shadowStatus")?.classList.toggle("is-live", on);
+}
+
 async function runShadow() {
   stopTraining();
   const id = train.runId;
   train.mode = "shadow";
+  setShadowLive(true);
   keepAwake(true);
   const reps = Number(document.getElementById("shadowReps").value);
   const together = document.getElementById("shadowStyle").value === "together";
@@ -536,6 +549,7 @@ async function runShadow() {
     }
   }
   train.mode = "idle";
+  setShadowLive(false);
   keepAwake(false);
   setShadowStatus("Xong. Câu nào còn vấp thì bấm ✋ ở bước 2.");
 }

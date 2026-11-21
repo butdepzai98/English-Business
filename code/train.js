@@ -7,7 +7,8 @@ const STORE = {
   hard: "business-english.hard-phrases",
   listens: "business-english.listen-counts",
   days: "business-english.practice-days",
-  week: "business-english.weekly-habits"
+  week: "business-english.weekly-habits",
+  tipsClosed: "business-english.drill-tips-closed"
 };
 
 const REFLEX_GOOD_MS = 2000;
@@ -340,6 +341,10 @@ async function mountTrain(lesson, transcript, token) {
   }
   panel.onclick = handleTrainClick;
   panel.onchange = handleTrainChange;
+  // "toggle" does not bubble, so bind it on the element itself.
+  panel.querySelector(".drill-tips")?.addEventListener("toggle", event => {
+    saveJson(STORE.tipsClosed, !event.target.open);
+  });
 }
 
 function trainHtml({ lesson, media, turns, speakers, defaultRole, listens, hardKeys }) {
@@ -420,6 +425,7 @@ function trainHtml({ lesson, media, turns, speakers, defaultRole, listens, hardK
         <button class="btn" data-act="drill-stop">■ Dừng</button>
       </div>
       <p class="step-note">Nên dùng tai nghe để mic không thu lại tiếng audio. Bản ghi giọng chỉ nằm trong trình duyệt, không gửi đi đâu.</p>
+      ${drillTipsHtml()}
       <div id="drillStage" class="drill-stage"></div>
     </section>` : "";
 
@@ -442,6 +448,26 @@ function trainHtml({ lesson, media, turns, speakers, defaultRole, listens, hardK
 function updateListenCount(count) {
   const el = document.getElementById("listenCount");
   if (el) el.innerHTML = `Đã nghe: <strong>${count}</strong> / ${BLIND_LISTEN_TARGET}`;
+}
+
+// Short, drill-only advice. Open on first visit; remembers if the learner closes it.
+const DRILL_TIPS = [
+  ["Lần 1 để làm quen, đừng lo điểm", "Đọc câu mẫu, nghe mẫu, rồi nghe lại bản ghi giọng mình."],
+  ["Lần 2–3: bật “Xáo thứ tự”", "Để phản xạ thật, không dựa vào thứ tự câu."],
+  ["Tai nghe + phòng yên tĩnh", "Im lặng 1 giây lúc hiệu chuẩn để mic đo đúng."],
+  ["Mở đầu bằng “Sure,” “Yeah,” “Okay,”", "Người bản xứ cũng làm vậy, cho bạn thêm thời gian nghĩ."],
+  ["Học theo cụm, không dịch từng chữ", "Thuộc “I finished…”, “I’m waiting for…” rồi thay phần sau."],
+  ["Nói to, rõ ngay âm đầu", "Thì thầm sẽ bị tính là chậm. Nói xong thì bấm Xong."]
+];
+
+function drillTipsHtml() {
+  const closed = loadJson(STORE.tipsClosed, false) === true;
+  const items = DRILL_TIPS.map(([title, text]) =>
+    `<li><strong>${escapeHtml(title)}</strong><span>${escapeHtml(text)}</span></li>`).join("");
+  return `<details class="drill-tips" ${closed ? "" : "open"}>
+      <summary>💡 Mẹo để drill đạt kết quả tốt nhất</summary>
+      <ol>${items}</ol>
+    </details>`;
 }
 
 function handleTrainChange() {
@@ -484,6 +510,7 @@ function handleTrainClick(event) {
     case "drill-start": runReflex(); break;
     case "drill-stop": stopTraining(); renderStage(`<div class="stage-line">Đã dừng.</div>`); break;
     case "drill-next": if (train.waitNext) { const go = train.waitNext; train.waitNext = null; go(true); } break;
+    case "reply-done": if (train.mode === "drill" && train.waitNext) train.waitNext(true); break;
     case "drill-model": playModelAnswer(); break;
     case "drill-mine": playMyReply(); break;
     case "self-ok": resolveManual(true); break;
@@ -691,6 +718,24 @@ async function runReflex() {
   finishDrill(results, role, Boolean(mic));
 }
 
+// A reply is over when the learner has been silent for a while. The length cap is only a safety
+// net for a mic that never goes quiet (fan, TV): it is far above any real answer, and it must
+// never cut someone who is still talking. Kept pure so it can be tested without a microphone.
+const REPLY_END_SILENCE_MS = 2500;
+const REPLY_MAX_MS = 90000;
+
+function replyEnded({ now, onsetAt, lastVoice, maxMs = REPLY_MAX_MS }) {
+  if (now - lastVoice >= REPLY_END_SILENCE_MS) return true;
+  return now - onsetAt >= maxMs;
+}
+
+function formatClock(ms) {
+  const total = Math.floor(ms / 1000);
+  return `${Math.floor(total / 60)}:${String(total % 60).padStart(2, "0")}`;
+}
+
+// Two phases. A: wait for the first sound and lock the reflex time (this is the score).
+// B: keep recording the full answer; it ends on "Xong"/Space or a 2.5s silence.
 function captureReply(mic, id, header) {
   return new Promise(resolve => {
     renderStage(`
@@ -702,14 +747,19 @@ function captureReply(mic, id, header) {
     const recorder = new MediaRecorder(mic.stream);
     recorder.ondataavailable = e => { if (e.data.size) chunks.push(e.data); };
     const buffer = new Uint8Array(mic.analyser.fftSize);
+    const sustain = mic.threshold * 0.5;   // trailing syllables are quieter than the first one
     const t0 = performance.now();
     let onsetAt = null;
     let lastVoice = null;
     let loudFrames = 0;
     let verdict = null;
+    let clockEl = null;
+    let meterEl = null;
+    let shownLevel = 0;   // eased so the bar drifts instead of jumping while the learner talks
 
     const finish = result => {
       clearInterval(timer);
+      train.waitNext = null;
       verdict = result;
       recorder.onstop = () => {
         if (verdict === false && train.runId !== id) return resolve(null);
@@ -717,6 +767,7 @@ function captureReply(mic, id, header) {
         resolve({
           answered: verdict === true,
           ms: verdict === true ? Math.max(0, Math.round(onsetAt - t0)) : null,
+          speechMs: verdict === true ? Math.max(0, Math.round(lastVoice - onsetAt)) : null,
           url
         });
       };
@@ -724,28 +775,54 @@ function captureReply(mic, id, header) {
       else recorder.onstop();
     };
 
+    const showRecording = () => {
+      const reflex = ((onsetAt - t0) / 1000).toFixed(1);
+      const hint = matchMedia("(hover: none)").matches ? "" : " (Space)";
+      renderStage(`
+        <div class="rec-state">
+          <div class="rec-head"><span class="rec-dot"></span><strong>Đang ghi câu trả lời</strong><span class="rec-time" id="recTime">0:00</span></div>
+          <div class="rec-meter"><div id="recMeter" class="rec-meter-fill"></div></div>
+          <p class="rec-note">Phản xạ của bạn: <strong class="${latencyClass(onsetAt - t0)}">${reflex}s</strong> — đã chốt. Cứ nói hết câu, xong thì bấm nút bên dưới.</p>
+          <div class="stage-actions"><button class="btn btn-primary rec-done" data-act="reply-done">Xong ▶${hint}</button></div>
+        </div>`);
+      clockEl = document.getElementById("recTime");
+      meterEl = document.getElementById("recMeter");
+      // Space / the Xong button resolve this; Esc and stopTraining() release it with false.
+      train.waitNext = ok => finish(ok ? true : false);
+    };
+
     // Recording is a bonus (replay of your own answer); timing must still work if it cannot start.
-    try { recorder.start(); } catch (error) { console.warn("Không ghi âm được:", error); }
+    try { recorder.start(250); } catch (error) { console.warn("Không ghi âm được:", error); }
     const timer = setInterval(() => {
       if (train.runId !== id) return finish(false);
       const now = performance.now();
       const elapsed = now - t0;
       const level = micLevel(mic, buffer);
-      const fill = document.getElementById("timerFill");
 
       if (onsetAt === null) {
+        const fill = document.getElementById("timerFill");
         if (fill) {
           fill.style.width = `${Math.min(100, elapsed / REFLEX_OK_MS * 100)}%`;
           fill.className = `timer-fill ${latencyClass(elapsed)}`;
         }
         if (elapsed > 150) {
           loudFrames = level > mic.threshold ? loudFrames + 1 : 0;
-          if (loudFrames >= 3) { onsetAt = now - 75; lastVoice = now; }
+          if (loudFrames >= 3) {
+            onsetAt = now - 75;
+            lastVoice = now;
+            showRecording();
+          }
         }
-        if (elapsed > REPLY_TIMEOUT_MS) finish("timeout");
+        if (onsetAt === null && elapsed > REPLY_TIMEOUT_MS) finish("timeout");
       } else {
-        if (level > mic.threshold) lastVoice = now;
-        if (now - lastVoice > 1200 || now - onsetAt > 20000) finish(true);
+        if (level > sustain) lastVoice = now;
+        if (clockEl) clockEl.textContent = formatClock(now - onsetAt);
+        if (meterEl) {
+          const target = Math.min(1, level / (mic.threshold * 6));
+          shownLevel += (target - shownLevel) * 0.06;
+          meterEl.style.width = `${(shownLevel * 100).toFixed(1)}%`;
+        }
+        if (replyEnded({ now, onsetAt, lastVoice })) finish(true);
       }
     }, 25);
   });
@@ -782,6 +859,7 @@ function resultHtml(reply, answer, isLast) {
   return `
     <div class="result-big ${cls}">${big}</div>
     <div class="stage-line">${label}</div>
+    ${reply.speechMs != null ? `<div class="stage-hint">Bạn nói khoảng ${(reply.speechMs / 1000).toFixed(1)}s · câu mẫu ${turnSeconds(answer).toFixed(1)}s</div>` : ""}
     <div class="model-answer"><span class="turn-speaker">${escapeHtml(answer.speaker)}</span> ${escapeHtml(answer.text)}</div>
     <div class="stage-actions">
       <button class="btn" data-act="drill-model">▶ Nghe câu mẫu</button>

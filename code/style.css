@@ -894,6 +894,81 @@ select {
   }
 }
 
+/* Reflex drill: recording state */
+.rec-state {
+  padding: 16px 18px;
+  border-radius: 14px;
+  border: 1px solid #3a2a27;
+  background: #171313;
+}
+
+.rec-head { display: flex; align-items: center; gap: 10px; color: #f1d6d0; font-size: 16px; }
+.rec-head strong { flex: 1; font-weight: 600; }
+.rec-dot { width: 10px; height: 10px; border-radius: 50%; background: #9c4a3c; animation: rec-pulse 2.8s ease-in-out infinite; }
+.rec-time { font-variant-numeric: tabular-nums; font-size: 30px; font-weight: 700; color: #fff; letter-spacing: .5px; }
+
+.rec-meter { height: 4px; margin: 12px 0 10px; border-radius: 4px; background: #181818; overflow: hidden; }
+.rec-meter-fill { height: 100%; width: 0; border-radius: inherit; background: #34403c; transition: width 200ms ease-out; }
+
+.rec-note { margin: 0; color: #b9b9b9; font-size: 14.5px; line-height: 1.5; }
+.rec-note strong.good { color: #56bd96; }
+.rec-note strong.ok { color: #e0b341; }
+.rec-note strong.bad { color: #e0644f; }
+
+.rec-done { min-width: 150px; font-size: 16px; padding: 12px 22px; }
+
+@keyframes rec-pulse {
+  0%, 100% { opacity: .85; }
+  50% { opacity: .45; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rec-dot { animation: none; }
+}
+
+/* Reflex drill: tips (kept compact; it sits above the drill itself) */
+.drill-tips {
+  margin-top: 12px;
+  border: 1px solid #3d3314;
+  border-radius: 10px;
+  background: rgba(200, 146, 27, .05);
+}
+
+.drill-tips summary {
+  padding: 8px 14px;
+  min-height: 40px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: #e6cf93;
+  font-weight: 600;
+  font-size: 14px;
+  list-style: none;
+}
+
+.drill-tips summary::-webkit-details-marker { display: none; }
+.drill-tips summary::after { content: "▾"; margin-left: auto; color: #b8913a; transition: transform .15s; }
+.drill-tips:not([open]) summary::after { transform: rotate(-90deg); }
+
+.drill-tips ol { list-style: none; counter-reset: tip; margin: 0; padding: 0 14px 10px; display: grid; gap: 6px; }
+.drill-tips li { counter-increment: tip; display: grid; grid-template-columns: 20px 1fr; column-gap: 10px; align-items: start; line-height: 1.4; }
+.drill-tips li::before {
+  content: counter(tip);
+  grid-row: span 2;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #8a6a1c;
+  color: #fff3d1;
+  font-size: 11.5px;
+  font-weight: 700;
+}
+.drill-tips li strong { color: #e2e2e2; font-size: 13.5px; font-weight: 600; }
+.drill-tips li span { color: #8f8f8f; font-size: 12.5px; }
+
 @media (max-width: 600px) {
   .tabs { margin-bottom: 16px; }
   .tab { flex: 1; min-width: 0; padding: 12px 8px; font-size: 16px; }
@@ -954,5 +1029,12 @@ select {
   .timer-track { height: 18px; }
   .result-big { font-size: 48px; }
   .stage-actions .btn { flex: 1 1 100%; }
+  .rec-state { padding: 14px; }
+  .rec-time { font-size: 26px; }
+  .rec-done { width: 100%; min-height: 52px; }
+  .drill-tips summary { min-height: 44px; font-size: 14.5px; }
+  .drill-tips ol { padding: 0 12px 10px; }
+  .drill-tips li strong { font-size: 14px; }
+  .drill-tips li span { font-size: 13px; }
   .stage-line { font-size: 16px; }
 }

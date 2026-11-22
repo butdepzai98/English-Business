@@ -26,7 +26,11 @@ const train = {
   mode: "idle",      // idle | shadow | drill
   busy: false,       // a segment is playing (do not count it as a full listen)
   mic: null,
-  waitNext: null
+  waitNext: null,
+  paused: false,        // shadowing is paused (audio and speaking countdown frozen)
+  shadowSignal: null,   // "next" | "replay": set by the shadowing buttons, read by runShadow
+  shadowIndex: -1,      // sentence currently being shadowed
+  wakeShadow: null      // lets a button cut the current wait short
 };
 
 const lessonMediaCache = new Map();
@@ -197,7 +201,7 @@ async function playSegment(audio, start, end, rate, runId) {
     audio.currentTime = Math.max(0, start - 0.05);
     audio.play().then(() => {
       timer = setInterval(() => {
-        if (train.runId !== runId) return finish(false);
+        if (train.runId !== runId || train.shadowSignal) return finish(false);
         if (audio.currentTime >= end || audio.ended) finish(true);
       }, 25);
     }).catch(() => finish(false));
@@ -244,18 +248,26 @@ function shadowGapMs(turn, pace) {
   return Math.max(SHADOW_MIN_MS, turnSeconds(turn) / train.rate * 1000 * mult + 1000);
 }
 
-// Resolves true when the wait ends (timer, or the learner pressing Next / Space), "replay" when
-// they ask to hear the sentence again, and false when the run was stopped. ms = null waits for Next.
+// Waits while the learner repeats a sentence. Resolves true when the time is up or a button woke
+// it (the caller then reads train.shadowSignal), false when the run was ended. The countdown
+// freezes while paused. ms = null waits until a button is pressed.
 function shadowWait(ms, id) {
   return new Promise(resolve => {
-    let timer = null;
-    const done = value => {
-      clearTimeout(timer);
-      if (train.waitNext === done) train.waitNext = null;
-      resolve(train.runId === id ? value : false);
+    let left = ms;
+    const finish = value => {
+      clearInterval(timer);
+      train.wakeShadow = null;
+      resolve(value);
     };
-    train.waitNext = done;
-    if (ms != null) timer = setTimeout(() => done(true), ms);
+    const timer = setInterval(() => {
+      if (train.runId !== id) return finish(false);
+      if (train.shadowSignal) return finish(true);
+      if (left != null && !train.paused) {
+        left -= 100;
+        if (left <= 0) finish(true);
+      }
+    }, 100);
+    train.wakeShadow = () => finish(train.runId === id);
   });
 }
 
@@ -266,7 +278,7 @@ function stopTraining() {
   setShadowLive(false);
   if (train.audio) train.audio.pause();
   if (homeAudio) homeAudio.pause();
-  if ("speechSynthesis" in window) speechSynthesis.cancel();
+  if ("speechSynthesis" in window) { speechSynthesis.cancel(); speechSynthesis.resume(); }
   if (train.waitNext) {
     const release = train.waitNext;
     train.waitNext = null;
@@ -364,8 +376,8 @@ function trainHtml({ lesson, media, turns, speakers, defaultRole, listens, hardK
     <div class="turn-row" data-i="${i}">
       <span class="turn-speaker">${escapeHtml(turn.speaker)}</span>
       <span class="turn-text">${escapeHtml(turn.text)}</span>
-      <button class="icon-btn" data-act="play-turn" data-i="${i}" title="Nghe lại câu này">▶</button>
-      <button class="icon-btn hard-btn ${hardKeys.has(i) ? "on" : ""}" data-act="mark-hard" data-i="${i}" title="Nghe không ra → lưu vào Cụm khó">✋</button>
+      <button class="icon-btn" data-act="play-turn" data-i="${i}" title="Replay this sentence">▶</button>
+      <button class="icon-btn hard-btn ${hardKeys.has(i) ? "on" : ""}" data-act="mark-hard" data-i="${i}" title="Couldn't catch it → save to Hard phrases">✋</button>
     </div>`).join("");
 
   const roleOptions = speakers.map(s =>
@@ -375,13 +387,13 @@ function trainHtml({ lesson, media, turns, speakers, defaultRole, listens, hardK
     <section class="step-card">
       <div class="step-head"><span class="step-num">2</span><div><h3>Kiểm tra — chỗ nào nghe không ra?</h3>
         <p>Chỉ mở transcript <strong>sau khi</strong> nghe mù. Bấm ✋ vào câu nghe không ra để lưu vào “Cụm khó”.</p></div></div>
-      <button class="btn" data-act="toggle-transcript" id="transcriptToggle">Hiện transcript (English)</button>
+      <button class="btn" data-act="toggle-transcript" id="transcriptToggle">Show transcript</button>
       <div id="transcriptList" class="turn-list hidden">${rows}</div>
     </section>
 
     <section class="step-card">
       <div class="step-head"><span class="step-num">3</span><div><h3>Nói theo (shadowing)</h3>
-        <p>Nghe từng câu rồi nói lại ngay, không nhìn chữ. Chọn tốc độ ở bước 1.</p></div></div>
+        <p>Nghe từng câu rồi nói lại, không nhìn chữ. Không nghe rõ thì bấm <strong>Show transcript</strong>. Chọn tốc độ ở bước 1.</p></div></div>
       <div class="shadow-settings">
         <label class="field field-wide"><span>Kiểu</span>
           <select id="shadowStyle">
@@ -397,20 +409,23 @@ function trainHtml({ lesson, media, turns, speakers, defaultRole, listens, hardK
             <option value="fast" selected>Nhanh (1,5×)</option>
             <option value="normal">Vừa (2×)</option>
             <option value="slow">Chậm (3×)</option>
-            <option value="manual">Tự bấm Tiếp</option>
+            <option value="manual">Tự bấm Next sentence</option>
           </select>
         </label>
       </div>
       <div class="shadow-actions">
-        <button class="btn btn-primary shadow-start" data-act="shadow-start">▶ Bắt đầu</button>
+        <button class="btn btn-primary shadow-start" data-act="shadow-start">▶ Start</button>
         <div class="shadow-live">
-          <button class="btn" data-act="shadow-replay" disabled>↺ Nghe lại</button>
-          <button class="btn" data-act="shadow-next" disabled>Tiếp ▶</button>
-          <button class="btn" data-act="shadow-stop" disabled>■ Dừng</button>
+          <button class="btn" data-act="shadow-replay" disabled>↺ Replay</button>
+          <button class="btn" data-act="shadow-next" disabled>Next sentence ▶</button>
+          <button class="btn" data-act="shadow-pause" disabled>⏸ Pause</button>
+          <button class="btn" data-act="shadow-stop" disabled>■ End</button>
         </div>
       </div>
       <div id="shadowStatus" class="status-line shadow-status">Sẵn sàng.</div>
-      <p class="step-note">Thời gian nói = độ dài câu × hệ số đã chọn. Phím <kbd>Space</kbd> qua câu sau, <kbd>Esc</kbd> dừng.</p>
+      <button class="btn shadow-transcript-btn" data-act="shadow-transcript" aria-expanded="false" disabled>👁 Show transcript</button>
+      <div id="shadowTranscript" class="shadow-transcript hidden"></div>
+      <p class="step-note">Thời gian nói = độ dài câu × hệ số đã chọn. <strong>Pause</strong> để nghỉ, <strong>Next sentence</strong> để sang câu sau, <strong>End</strong> để thoát. Phím <kbd>Space</kbd> = Next sentence, <kbd>Esc</kbd> = End.</p>
     </section>
 
     <section class="step-card step-reflex">
@@ -421,8 +436,8 @@ function trainHtml({ lesson, media, turns, speakers, defaultRole, listens, hardK
           <select id="drillRole">${roleOptions}</select>
         </label>
         <label class="check"><input type="checkbox" id="drillShuffle"> Xáo thứ tự</label>
-        <button class="btn btn-primary" data-act="drill-start">⚡ Bắt đầu drill</button>
-        <button class="btn" data-act="drill-stop">■ Dừng</button>
+        <button class="btn btn-primary" data-act="drill-start">⚡ Start drill</button>
+        <button class="btn" data-act="drill-stop">■ End</button>
       </div>
       <p class="step-note">Nên dùng tai nghe để mic không thu lại tiếng audio. Bản ghi giọng chỉ nằm trong trình duyệt, không gửi đi đâu.</p>
       ${drillTipsHtml()}
@@ -457,7 +472,7 @@ const DRILL_TIPS = [
   ["Tai nghe + phòng yên tĩnh", "Im lặng 1 giây lúc hiệu chuẩn để mic đo đúng."],
   ["Mở đầu bằng “Sure,” “Yeah,” “Okay,”", "Người bản xứ cũng làm vậy, cho bạn thêm thời gian nghĩ."],
   ["Học theo cụm, không dịch từng chữ", "Thuộc “I finished…”, “I’m waiting for…” rồi thay phần sau."],
-  ["Nói to, rõ ngay âm đầu", "Thì thầm sẽ bị tính là chậm. Nói xong thì bấm Xong."]
+  ["Nói to, rõ ngay âm đầu", "Thì thầm sẽ bị tính là chậm. Nói xong thì bấm Done."]
 ];
 
 function drillTipsHtml() {
@@ -490,7 +505,7 @@ function handleTrainClick(event) {
     case "toggle-transcript": {
       const list = document.getElementById("transcriptList");
       const open = list.classList.toggle("hidden") === false;
-      target.textContent = open ? "Ẩn transcript" : "Hiện transcript (English)";
+      target.textContent = open ? "Hide transcript" : "Show transcript";
       break;
     }
     case "play-turn": {
@@ -504,11 +519,13 @@ function handleTrainClick(event) {
       break;
     }
     case "shadow-start": target.blur(); runShadow(); break;
-    case "shadow-next": if (train.mode === "shadow" && train.waitNext) train.waitNext(true); break;
-    case "shadow-replay": if (train.mode === "shadow" && train.waitNext) train.waitNext("replay"); break;
-    case "shadow-stop": stopTraining(); setShadowStatus("Đã dừng."); break;
+    case "shadow-next": shadowCommand("next"); break;
+    case "shadow-replay": shadowCommand("replay"); break;
+    case "shadow-pause": setShadowPaused(!train.paused); break;
+    case "shadow-transcript": if (train.mode === "shadow") setShadowTranscriptOpen(document.getElementById("shadowTranscript")?.classList.contains("hidden")); break;
+    case "shadow-stop": stopTraining(); setShadowStatus("Đã kết thúc."); break;
     case "drill-start": runReflex(); break;
-    case "drill-stop": stopTraining(); renderStage(`<div class="stage-line">Đã dừng.</div>`); break;
+    case "drill-stop": stopTraining(); renderStage(`<div class="stage-line">Đã kết thúc.</div>`); break;
     case "drill-next": if (train.waitNext) { const go = train.waitNext; train.waitNext = null; go(true); } break;
     case "reply-done": if (train.mode === "drill" && train.waitNext) train.waitNext(true); break;
     case "drill-model": playModelAnswer(); break;
@@ -535,10 +552,81 @@ function setShadowStatus(text) {
   if (el) el.textContent = text;
 }
 
-// Replay / Next / Stop only make sense while a shadowing run is going.
+// Controls that only make sense while a shadowing run is going.
 function setShadowLive(on) {
-  document.querySelectorAll(".shadow-live .btn").forEach(btn => { btn.disabled = !on; });
+  document.querySelectorAll(".shadow-live .btn, .shadow-transcript-btn").forEach(btn => { btn.disabled = !on; });
   document.getElementById("shadowStatus")?.classList.toggle("is-live", on);
+  if (!on) {
+    train.paused = false;
+    train.shadowSignal = null;
+    train.wakeShadow = null;
+    updatePauseButton();
+    setShadowTranscriptOpen(false);
+  }
+}
+
+function updatePauseButton() {
+  const btn = document.querySelector('[data-act="shadow-pause"]');
+  if (!btn) return;
+  btn.textContent = train.paused ? "▶ Resume" : "⏸ Pause";
+  btn.classList.toggle("is-paused", train.paused);
+}
+
+let statusBeforePause = "";
+
+// Freezes the audio and the speaking countdown; running again picks up exactly where it stopped.
+function setShadowPaused(on) {
+  if (train.mode !== "shadow" || train.paused === on) return;
+  train.paused = on;
+  const speech = "speechSynthesis" in window ? speechSynthesis : null;
+  if (on) {
+    train.audio?.pause();
+    speech?.pause();
+    statusBeforePause = document.getElementById("shadowStatus")?.textContent || "";
+    setShadowStatus("⏸ Đã tạm dừng — bấm Resume để chạy tiếp");
+  } else {
+    if (train.busy && train.segments) train.audio?.play().catch(() => {});
+    speech?.resume();
+    if (statusBeforePause) setShadowStatus(statusBeforePause);
+  }
+  updatePauseButton();
+}
+
+// "Câu tiếp" / "Nghe lại": work at any moment, even while the sentence is still playing.
+function shadowCommand(command) {
+  if (train.mode !== "shadow") return;
+  if (train.paused) {
+    train.paused = false;
+    updatePauseButton();
+    if (statusBeforePause) setShadowStatus(statusBeforePause);
+  }
+  train.shadowSignal = command;
+  if ("speechSynthesis" in window) { speechSynthesis.cancel(); speechSynthesis.resume(); }
+  train.wakeShadow?.();
+}
+
+function takeShadowSignal() {
+  const signal = train.shadowSignal;
+  train.shadowSignal = null;
+  return signal;
+}
+
+function renderShadowTranscript() {
+  const box = document.getElementById("shadowTranscript");
+  if (!box) return;
+  const turn = train.turns[train.shadowIndex];
+  box.innerHTML = turn
+    ? `<span class="turn-speaker">${escapeHtml(turn.speaker)}</span> ${escapeHtml(turn.text)}`
+    : "";
+}
+
+function setShadowTranscriptOpen(open) {
+  document.getElementById("shadowTranscript")?.classList.toggle("hidden", !open);
+  const btn = document.querySelector('[data-act="shadow-transcript"]');
+  if (btn) {
+    btn.textContent = open ? "🙈 Hide transcript" : "👁 Show transcript";
+    btn.setAttribute("aria-expanded", String(open));
+  }
 }
 
 async function runShadow() {
@@ -554,25 +642,34 @@ async function runShadow() {
   for (let i = 0; i < train.turns.length; i += 1) {
     const turn = train.turns[i];
     const where = `Câu ${i + 1}/${train.turns.length}`;
-    for (let rep = 1; rep <= reps; rep += 1) {
-      let again = true;
-      while (again) {
-        again = false;
-        setShadowStatus(`${where} · lần ${rep}/${reps} — 🎧 nghe`);
-        if (!await playTurn(turn, train.rate, id)) return;
+    train.shadowIndex = i;
+    renderShadowTranscript();
+    setShadowTranscriptOpen(false);   // hidden by default: peeking is a choice for each sentence
+
+    let rep = 1;
+    while (rep <= reps) {
+      setShadowStatus(`${where} · lần ${rep}/${reps} — 🎧 nghe`);
+      const played = await playTurn(turn, train.rate, id);
+      let signal = takeShadowSignal();
+      if (!signal && !played) return;   // the run was ended
+
+      if (!signal) {
         if (together) {
           if (!await sleep(250, id)) return;
-          continue;
+        } else {
+          const manual = pace === "manual";
+          const ms = manual ? null : shadowGapMs(turn, pace);
+          setShadowStatus(manual
+            ? `${where} · lần ${rep}/${reps} — 🗣 nói lại, xong thì bấm Next sentence (Space)`
+            : `${where} · lần ${rep}/${reps} — 🗣 nói lại (~${Math.round(ms / 1000)}s) · Space = Next sentence`);
+          if (!await shadowWait(ms, id)) return;
         }
-        const manual = pace === "manual";
-        const ms = manual ? null : shadowGapMs(turn, pace);
-        setShadowStatus(manual
-          ? `${where} · lần ${rep}/${reps} — 🗣 nói lại, xong thì bấm Tiếp (Space)`
-          : `${where} · lần ${rep}/${reps} — 🗣 nói lại (~${Math.round(ms / 1000)}s) · Space = qua câu sau`);
-        const result = await shadowWait(ms, id);
-        if (result === false) return;
-        again = result === "replay";
+        signal = takeShadowSignal();
       }
+
+      if (signal === "next") break;      // on to the next sentence
+      if (signal === "replay") continue; // same round again
+      rep += 1;
     }
   }
   train.mode = "idle";
@@ -700,7 +797,7 @@ async function runReflex() {
 
     renderStage(`<div class="stage-line">${header} · 🎧 Nghe…</div>`);
     if (!await playTurn(question, 1, id)) {
-      if (train.runId === id) renderStage(`<div class="stage-line">Không phát được audio câu hỏi. Kiểm tra loa/tai nghe rồi bấm Bắt đầu lại.</div>`);
+      if (train.runId === id) renderStage(`<div class="stage-line">Không phát được audio câu hỏi. Kiểm tra loa/tai nghe rồi bấm Start drill lại.</div>`);
       return;
     }
 
@@ -735,7 +832,7 @@ function formatClock(ms) {
 }
 
 // Two phases. A: wait for the first sound and lock the reflex time (this is the score).
-// B: keep recording the full answer; it ends on "Xong"/Space or a 2.5s silence.
+// B: keep recording the full answer; it ends on "Done"/Space or a 2.5s silence.
 function captureReply(mic, id, header) {
   return new Promise(resolve => {
     renderStage(`
@@ -783,11 +880,11 @@ function captureReply(mic, id, header) {
           <div class="rec-head"><span class="rec-dot"></span><strong>Đang ghi câu trả lời</strong><span class="rec-time" id="recTime">0:00</span></div>
           <div class="rec-meter"><div id="recMeter" class="rec-meter-fill"></div></div>
           <p class="rec-note">Phản xạ của bạn: <strong class="${latencyClass(onsetAt - t0)}">${reflex}s</strong> — đã chốt. Cứ nói hết câu, xong thì bấm nút bên dưới.</p>
-          <div class="stage-actions"><button class="btn btn-primary rec-done" data-act="reply-done">Xong ▶${hint}</button></div>
+          <div class="stage-actions"><button class="btn btn-primary rec-done" data-act="reply-done">Done ▶${hint}</button></div>
         </div>`);
       clockEl = document.getElementById("recTime");
       meterEl = document.getElementById("recMeter");
-      // Space / the Xong button resolve this; Esc and stopTraining() release it with false.
+      // Space / the Done button resolve this; Esc and stopTraining() release it with false.
       train.waitNext = ok => finish(ok ? true : false);
     };
 
@@ -835,8 +932,8 @@ function captureManual(id, header) {
         ? "Không dùng được micro (có thể bạn đã từ chối quyền) nên hãy tự đánh giá nhé."
         : "Trình duyệt chặn micro vì trang chưa dùng HTTPS (xem README, mục “Học trên điện thoại”). Tạm thời hãy tự đánh giá nhé."}</div>
     <div class="stage-actions">
-      <button class="btn btn-primary" data-act="self-ok">✅ Tôi nói được ngay (≤ 3s)</button>
-      <button class="btn" data-act="self-freeze">😶 Tôi bị đứng hình</button>
+      <button class="btn btn-primary" data-act="self-ok">✅ I answered in time (≤ 3s)</button>
+      <button class="btn" data-act="self-freeze">😶 I froze</button>
     </div>`);
   return new Promise(resolve => {
     manualResolver = ok => resolve(train.runId === id ? { answered: ok, ms: null, self: ok ? "ok" : "freeze", url: null } : null);
@@ -862,9 +959,9 @@ function resultHtml(reply, answer, isLast) {
     ${reply.speechMs != null ? `<div class="stage-hint">Bạn nói khoảng ${(reply.speechMs / 1000).toFixed(1)}s · câu mẫu ${turnSeconds(answer).toFixed(1)}s</div>` : ""}
     <div class="model-answer"><span class="turn-speaker">${escapeHtml(answer.speaker)}</span> ${escapeHtml(answer.text)}</div>
     <div class="stage-actions">
-      <button class="btn" data-act="drill-model">▶ Nghe câu mẫu</button>
-      ${reply.url ? `<button class="btn" data-act="drill-mine">▶ Nghe tôi nói</button>` : ""}
-      <button class="btn btn-primary" data-act="drill-next">${isLast ? "Xem kết quả" : "Câu tiếp →"}${matchMedia("(hover: none)").matches ? "" : " (Space)"}</button>
+      <button class="btn" data-act="drill-model">▶ Hear model answer</button>
+      ${reply.url ? `<button class="btn" data-act="drill-mine">▶ Hear my answer</button>` : ""}
+      <button class="btn btn-primary" data-act="drill-next">${isLast ? "See results" : "Next question →"}${matchMedia("(hover: none)").matches ? "" : " (Space)"}</button>
     </div>`;
 }
 
@@ -959,7 +1056,7 @@ function overallNote() {
 function reviewCtas(items) {
   return items.map(item => ({
     lesson: item.lesson,
-    text: `▶ Ôn Lesson ${item.lesson.number} — ${item.lesson.title}${item.drill?.avgMs != null ? ` (${(item.drill.avgMs / 1000).toFixed(1)}s)` : ""}`
+    text: `▶ Review Lesson ${item.lesson.number} — ${item.lesson.title}${item.drill?.avgMs != null ? ` (${(item.drill.avgMs / 1000).toFixed(1)}s)` : ""}`
   }));
 }
 
@@ -1041,7 +1138,7 @@ function todayPlan() {
       ["7′", "③ Nói theo (shadowing), mỗi câu 2 lần"],
       ["10′", "④ Reflex drill — trả lời trong ≤ 2 giây"]
     ],
-    ctas: [{ lesson: fresh, text: `▶ Bắt đầu Lesson ${fresh.number} — ${fresh.title}` }]
+    ctas: [{ lesson: fresh, text: `▶ Start Lesson ${fresh.number} — ${fresh.title}` }]
   };
 }
 
@@ -1119,7 +1216,7 @@ function reviewHtml() {
   }
   const rows = queue.slice(0, 8).map(item => `
     <div class="hard-row">
-      <button class="icon-btn" data-act="start-lesson" data-id="${item.lesson.id}" title="Mở bài để drill lại">▶</button>
+      <button class="icon-btn" data-act="start-lesson" data-id="${item.lesson.id}" title="Open lesson to drill again">▶</button>
       <span class="hard-meta">${item.lesson.id}</span>
       <span class="hard-text">${escapeHtml(item.lesson.title)} <span class="review-stats">· ${reviewStatsText(item)}</span></span>
     </div>`).join("");
@@ -1134,10 +1231,10 @@ function hardPhrasesHtml() {
   }
   return `<div class="hard-list">${[...list].reverse().slice(0, 30).map(item => `
     <div class="hard-row">
-      <button class="icon-btn" data-act="play-hard" data-lesson="${item.lessonId}" data-i="${item.index}" title="Nghe lại">▶</button>
+      <button class="icon-btn" data-act="play-hard" data-lesson="${item.lessonId}" data-i="${item.index}" title="Replay">▶</button>
       <span class="hard-meta">${item.lessonId}</span>
       <span class="hard-text">${escapeHtml(item.text)}</span>
-      <button class="icon-btn" data-act="del-hard" data-lesson="${item.lessonId}" data-i="${item.index}" title="Bỏ khỏi danh sách">✕</button>
+      <button class="icon-btn" data-act="del-hard" data-lesson="${item.lessonId}" data-i="${item.index}" title="Remove from list">✕</button>
     </div>`).join("")}</div>`;
 }
 
@@ -1248,6 +1345,12 @@ async function playHardPhrase(lessonId, index) {
 }
 
 window.addEventListener("keydown", event => {
+  if (event.key === " " && train.mode === "shadow" && !event.target.closest?.("input, select, textarea")) {
+    event.preventDefault();
+    event.target.blur?.();
+    shadowCommand("next");
+    return;
+  }
   if (event.key === " " && train.waitNext && !event.target.closest?.("input, select, textarea")) {
     event.preventDefault();
     event.target.blur?.();   // a focused button would otherwise also fire its own click
@@ -1257,7 +1360,7 @@ window.addEventListener("keydown", event => {
   }
   if (event.key === "Escape" && train.mode !== "idle") {
     stopTraining();
-    setShadowStatus("Đã dừng.");
-    renderStage(`<div class="stage-line">Đã dừng.</div>`);
+    setShadowStatus("Đã kết thúc.");
+    renderStage(`<div class="stage-line">Đã kết thúc.</div>`);
   }
 });

@@ -709,7 +709,21 @@ audio { width: 100%; margin: 10px 0 24px; }
 
 .shadow-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 14px; }
 .shadow-start { min-width: 150px; }
-.shadow-live { display: flex; gap: 8px; }
+.shadow-live { display: flex; flex-wrap: wrap; gap: 8px; }
+.shadow-live .btn.is-paused { background: #1d3558; border-color: #3b7fd8; color: #fff; }
+
+.shadow-transcript-btn { margin-top: 10px; width: 100%; background: transparent; color: #bdbdbd; }
+.shadow-transcript {
+  margin-top: 8px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #262626;
+  background: #1a1a1a;
+  color: #ececec;
+  font-size: 17px;
+  line-height: 1.5;
+}
+.shadow-transcript .turn-speaker { margin-right: 6px; }
 
 .shadow-status {
   padding: 10px 14px;
@@ -730,14 +744,24 @@ kbd {
   font-size: 12.5px;
 }
 
+/* Own chevron so it sits 14px from the right edge instead of hugging it. */
 select {
+  appearance: none;
+  -webkit-appearance: none;
   border: 1px solid #3a3a3a;
   border-radius: 8px;
-  padding: 8px 10px;
-  background: #1f1f1f;
+  padding: 8px 36px 8px 12px;
+  background-color: #1f1f1f;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%239a9a9a' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 12px 8px;
   color: #eee;
   font-size: 15px;
+  cursor: pointer;
 }
+
+select:focus-visible { outline: 2px solid #2b6cc4; outline-offset: 1px; }
 
 .chip-label { color: #8a8a8a; font-size: 14px; }
 .chip { border: 1px solid #3a3a3a; border-radius: 999px; padding: 6px 14px; background: transparent; color: #cfcfcf; cursor: pointer; }
@@ -1006,8 +1030,10 @@ select {
   .field-wide { grid-column: 1 / -1; }
   .shadow-actions { flex-direction: column; align-items: stretch; gap: 10px; }
   .shadow-start { width: 100%; min-height: 50px; }
-  .shadow-live { display: grid; grid-template-columns: repeat(3, 1fr); }
-  .shadow-live .btn { padding: 11px 6px; white-space: nowrap; }
+  .shadow-live { display: grid; grid-template-columns: repeat(2, 1fr); }
+  .shadow-live .btn { padding: 11px 8px; white-space: nowrap; }
+  .shadow-transcript-btn { min-height: 46px; }
+  .shadow-transcript { font-size: 17px; }
   select { min-height: 44px; font-size: 16px; }
   .chip { min-height: 40px; padding: 8px 16px; }
   .listen-count { margin-left: 0; width: 100%; }

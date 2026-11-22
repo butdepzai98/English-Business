@@ -8,7 +8,7 @@ const STORE = {
   listens: "business-english.listen-counts",
   days: "business-english.practice-days",
   week: "business-english.weekly-habits",
-  tipsClosed: "business-english.drill-tips-closed"
+  tipsOpen: "business-english.drill-tips-open"
 };
 
 const REFLEX_GOOD_MS = 2000;
@@ -278,6 +278,7 @@ function stopTraining() {
   setShadowLive(false);
   if (train.audio) train.audio.pause();
   if (homeAudio) homeAudio.pause();
+  drillMineAudio?.pause();
   if ("speechSynthesis" in window) { speechSynthesis.cancel(); speechSynthesis.resume(); }
   if (train.waitNext) {
     const release = train.waitNext;
@@ -355,7 +356,7 @@ async function mountTrain(lesson, transcript, token) {
   panel.onchange = handleTrainChange;
   // "toggle" does not bubble, so bind it on the element itself.
   panel.querySelector(".drill-tips")?.addEventListener("toggle", event => {
-    saveJson(STORE.tipsClosed, !event.target.open);
+    saveJson(STORE.tipsOpen, event.target.open);
   });
 }
 
@@ -467,7 +468,7 @@ function updateListenCount(count) {
 
 // Short, drill-only advice. Open on first visit; remembers if the learner closes it.
 const DRILL_TIPS = [
-  ["Lần 1 để làm quen, đừng lo điểm", "Đọc câu mẫu, nghe mẫu, rồi nghe lại bản ghi giọng mình."],
+  ["Lần 1 để làm quen, đừng lo điểm", "Đọc câu mẫu, nghe mẫu, rồi nghe lại bản ghi giọng mình. Chưa ưng thì bấm Replay để làm lại câu đó (điểm chỉ lấy lần làm lại cuối)."],
   ["Lần 2–3: bật “Xáo thứ tự”", "Để phản xạ thật, không dựa vào thứ tự câu."],
   ["Tai nghe + phòng yên tĩnh", "Im lặng 1 giây lúc hiệu chuẩn để mic đo đúng."],
   ["Mở đầu bằng “Sure,” “Yeah,” “Okay,”", "Người bản xứ cũng làm vậy, cho bạn thêm thời gian nghĩ."],
@@ -476,10 +477,10 @@ const DRILL_TIPS = [
 ];
 
 function drillTipsHtml() {
-  const closed = loadJson(STORE.tipsClosed, false) === true;
+  const open = loadJson(STORE.tipsOpen, false) === true;   // closed until the learner opens it
   const items = DRILL_TIPS.map(([title, text]) =>
     `<li><strong>${escapeHtml(title)}</strong><span>${escapeHtml(text)}</span></li>`).join("");
-  return `<details class="drill-tips" ${closed ? "" : "open"}>
+  return `<details class="drill-tips" ${open ? "open" : ""}>
       <summary>💡 Mẹo để drill đạt kết quả tốt nhất</summary>
       <ol>${items}</ol>
     </details>`;
@@ -526,7 +527,8 @@ function handleTrainClick(event) {
     case "shadow-stop": stopTraining(); setShadowStatus("Đã kết thúc."); break;
     case "drill-start": runReflex(); break;
     case "drill-stop": stopTraining(); renderStage(`<div class="stage-line">Đã kết thúc.</div>`); break;
-    case "drill-next": if (train.waitNext) { const go = train.waitNext; train.waitNext = null; go(true); } break;
+    case "drill-next": if (train.waitNext) { stopResultAudio(); const go = train.waitNext; train.waitNext = null; go(true); } break;
+    case "drill-replay": if (train.mode === "drill" && train.waitNext) { stopResultAudio(); const go = train.waitNext; train.waitNext = null; go("replay"); } break;
     case "reply-done": if (train.mode === "drill" && train.waitNext) train.waitNext(true); break;
     case "drill-model": playModelAnswer(); break;
     case "drill-mine": playMyReply(); break;
@@ -793,23 +795,29 @@ async function runReflex() {
   const results = [];
   for (let n = 0; n < pairs.length; n += 1) {
     const { question, answer } = pairs[n];
-    const header = `Câu ${n + 1}/${pairs.length}`;
+    let reply = null;
 
-    renderStage(`<div class="stage-line">${header} · 🎧 Nghe…</div>`);
-    if (!await playTurn(question, 1, id)) {
-      if (train.runId === id) renderStage(`<div class="stage-line">Không phát được audio câu hỏi. Kiểm tra loa/tai nghe rồi bấm Start drill lại.</div>`);
-      return;
+    // Replay re-asks this question; only the last attempt for a question is scored.
+    for (let attempt = 1; ; attempt += 1) {
+      if (reply?.url) URL.revokeObjectURL(reply.url);
+      const header = `Câu ${n + 1}/${pairs.length}${attempt > 1 ? ` · lần ${attempt}` : ""}`;
+
+      renderStage(`<div class="stage-line">${header} · 🎧 Nghe…</div>`);
+      if (!await playTurn(question, 1, id)) {
+        if (train.runId === id) renderStage(`<div class="stage-line">Không phát được audio câu hỏi. Kiểm tra loa/tai nghe rồi bấm Start drill lại.</div>`);
+        return;
+      }
+
+      reply = mic ? await captureReply(mic, id, header) : await captureManual(id, header);
+      if (!reply) return;
+
+      drillCurrent = { answer, replyUrl: reply.url || null };
+      renderStage(resultHtml(reply, answer, n === pairs.length - 1));
+      const action = await new Promise(resolve => { train.waitNext = resolve; });
+      if (!action || train.runId !== id) return;
+      if (action !== "replay") break;
     }
-
-    const reply = mic ? await captureReply(mic, id, header) : await captureManual(id, header);
-    if (!reply) return;
-
     results.push(reply);
-    drillCurrent = { answer, replyUrl: reply.url || null };
-    const isLast = n === pairs.length - 1;
-    renderStage(resultHtml(reply, answer, isLast));
-    if (!await new Promise(resolve => { train.waitNext = resolve; })) return;
-    if (train.runId !== id) return;
   }
 
   finishDrill(results, role, Boolean(mic));
@@ -958,9 +966,12 @@ function resultHtml(reply, answer, isLast) {
     <div class="stage-line">${label}</div>
     ${reply.speechMs != null ? `<div class="stage-hint">Bạn nói khoảng ${(reply.speechMs / 1000).toFixed(1)}s · câu mẫu ${turnSeconds(answer).toFixed(1)}s</div>` : ""}
     <div class="model-answer"><span class="turn-speaker">${escapeHtml(answer.speaker)}</span> ${escapeHtml(answer.text)}</div>
-    <div class="stage-actions">
-      <button class="btn" data-act="drill-model">▶ Hear model answer</button>
-      ${reply.url ? `<button class="btn" data-act="drill-mine">▶ Hear my answer</button>` : ""}
+    <div class="stage-actions result-actions">
+      <div class="result-secondary">
+        <button class="btn" data-act="drill-model">▶ Hear model answer</button>
+        ${reply.url ? `<button class="btn" data-act="drill-mine">▶ Hear my answer</button>` : ""}
+        <button class="btn" data-act="drill-replay">↺ Replay</button>
+      </div>
       <button class="btn btn-primary" data-act="drill-next">${isLast ? "See results" : "Next question →"}${matchMedia("(hover: none)").matches ? "" : " (Space)"}</button>
     </div>`;
 }
@@ -973,10 +984,19 @@ function playModelAnswer() {
   playTurn(drillCurrent.answer, 1, id);
 }
 
+let drillMineAudio = null;
+
+function stopResultAudio() {
+  drillMineAudio?.pause();
+  drillMineAudio = null;
+  if (train.audio) train.audio.pause();
+}
+
 function playMyReply() {
   if (!drillCurrent?.replyUrl) return;
-  if (train.audio) train.audio.pause();
-  new Audio(drillCurrent.replyUrl).play().catch(() => {});
+  stopResultAudio();
+  drillMineAudio = new Audio(drillCurrent.replyUrl);
+  drillMineAudio.play().catch(() => {});
 }
 
 function finishDrill(results, role, usedMic) {
@@ -1354,6 +1374,7 @@ window.addEventListener("keydown", event => {
   if (event.key === " " && train.waitNext && !event.target.closest?.("input, select, textarea")) {
     event.preventDefault();
     event.target.blur?.();   // a focused button would otherwise also fire its own click
+    stopResultAudio();
     const go = train.waitNext;
     train.waitNext = null;
     go(true);

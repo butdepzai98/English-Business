@@ -61,7 +61,7 @@ function setDrawer(open) {
 
 function showHome() {
   setDrawer(false);
-  els.topbarTitle.textContent = "Hôm nay";
+  els.topbarTitle.textContent = "Today";
   stopTraining();
   state.view = "home";
   state.currentLesson = null;
@@ -345,7 +345,7 @@ function renderTree(filter = "") {
       if (!hasFiles) {
         const missing = document.createElement("span");
         missing.className = "lesson-missing";
-        missing.textContent = "(chưa tạo)";
+        missing.textContent = "(not created)";
         button.appendChild(missing);
       }
 
